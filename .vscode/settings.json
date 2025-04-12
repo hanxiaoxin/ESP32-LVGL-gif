@@ -1,0 +1,39 @@
+{
+    "C_Cpp.intelliSenseEngine": "default",
+    "idf.espIdfPathWin": "c:\\Users\\hanxiaoxin\\esp\\v5.4.1\\esp-idf",
+    "idf.pythonInstallPath": "C:\\Users\\hanxiaoxin\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
+    "idf.openOcdConfigs": [
+        "board/esp32c3-builtin.cfg"
+    ],
+    "idf.portWin": "COM21",
+    "idf.toolsPathWin": "C:\\Users\\hanxiaoxin\\.espressif",
+    "idf.customExtraVars": {
+        "IDF_TARGET": "esp32c3"
+    },
+    "files.associations": {
+        "*.sqlbook": "sql",
+        "*.ndjson": "jsonl",
+        "*.dbclient-js": "javascript",
+        "cstdint": "cpp",
+        "*.tcc": "cpp",
+        "unordered_map": "cpp",
+        "fstream": "cpp",
+        "istream": "cpp",
+        "numeric": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "cstdlib": "cpp",
+        "i2c_types.h": "c",
+        "array": "cpp",
+        "string_view": "cpp",
+        "span": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "enabled",
+    "idf.flashType": "UART"
+}
