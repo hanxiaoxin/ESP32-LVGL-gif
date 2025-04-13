@@ -110,7 +110,7 @@ struct DisplayData {
   gpio_num_t sda;
   int invert;
 
-  DisplayData(gpio_num_t sclPin = GPIO_NUM_3, gpio_num_t sdaPin = GPIO_NUM_4, int invert = 0)
+  DisplayData(gpio_num_t sclPin = GPIO_NUM_21, gpio_num_t sdaPin = GPIO_NUM_20, int invert = 1)
       : scl(sclPin), sda(sdaPin), invert(invert) {
     memcpy(Data, DefaultData, sizeof(DefaultData));
   }
@@ -121,8 +121,8 @@ private:
   SSD1306(gpio_num_t sclPin, gpio_num_t sdaPin, int invert);
   ~SSD1306();
 
-  gpio_num_t _scl = GPIO_NUM_4;
-  gpio_num_t _sda = GPIO_NUM_3;
+  gpio_num_t _scl = GPIO_NUM_21;
+  gpio_num_t _sda = GPIO_NUM_20;
  
   i2c_master_bus_handle_t bus_handle;
   i2c_master_dev_handle_t dev_handle;
@@ -133,7 +133,7 @@ private:
   uint16_t _pages = 8; // 64高度是8,32高度是4
 
 public:
-  int _invert = 0;
+  int _invert = 1;
 
   static SSD1306 &GetInstance(gpio_num_t scl, gpio_num_t sda, int invert) {
     static SSD1306 instance(scl, sda, invert);
