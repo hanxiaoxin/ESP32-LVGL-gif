@@ -1,14 +1,24 @@
+#include "esp_err.h"
+#include "esp_event.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "ssd1306.h"
+#include "lib/ssd1306.h"
+#include "nvs_flash.h"
+#include "wifi.h"
+#include "service/qrcode.h"
+
+#define MAX_HTTP_RECV_BUFFER 2048
 
 #define TAG "Application"
 
-void initSSD1306(void *params) {
-  SSD1306 &display = SSD1306::GetInstance();
 
-  esp_err_t err = display.probeSSD1306();
+void initSSD1306() {
+  DisplayData dd = getQrcode();
+
+  SSD1306 &display = SSD1306::GetInstance(dd.scl, dd.sda, dd.invert);
+
+  esp_err_t err = display.probe_SSD1306();
 
   if (err != ESP_OK) {
     ESP_LOGE(TAG, "ssd1306 i2c not found");
@@ -18,13 +28,31 @@ void initSSD1306(void *params) {
 
   display.init();
   display.clear();
-  uint8_t myData[5] = {0xFF, 0x81, 0xBD, 0x81, 0xFF}; // 字母 A 形状
-  display.display_image(2, 10, myData, 5);
+
+
+  display.invert(display._invert);
+
+  for (int page = 0; page < 8; page++) {
+    display.display_image(page, 32, &dd.Data[page * 64], 64);
+  }
+
   vTaskDelete(NULL);
 }
 
 extern "C" void app_main(void) {
+  // Initialize NVS flash for WiFi configuration
+  esp_err_t ret = nvs_flash_init();
+  if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||
+      ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+    ESP_LOGW(TAG, "Erasing NVS flash to fix corruption");
+    ESP_ERROR_CHECK(nvs_flash_erase());
+    ret = nvs_flash_init();
+  }
+  ESP_ERROR_CHECK(ret);
 
-  xTaskCreatePinnedToCore(initSSD1306, "init ssd1306", 4096 * 2, NULL, 1, NULL,
-                          0);
+  ESP_ERROR_CHECK(esp_event_loop_create_default());
+
+  StartNetwork();
+
+  initSSD1306();
 }

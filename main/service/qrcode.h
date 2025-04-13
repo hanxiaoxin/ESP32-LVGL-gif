@@ -1,0 +1,1 @@
+DisplayData getQrcode();
