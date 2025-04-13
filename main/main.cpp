@@ -18,8 +18,8 @@ void initSSD1306(void *params) {
 
   display.init();
   display.clear();
-  display.flush();
-
+  uint8_t myData[5] = {0xFF, 0x81, 0xBD, 0x81, 0xFF}; // 字母 A 形状
+  display.display_image(2, 10, myData, 5);
   vTaskDelete(NULL);
 }
 
