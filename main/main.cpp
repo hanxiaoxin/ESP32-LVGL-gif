@@ -29,7 +29,7 @@ void initSSD1306() {
   display.init();
   display.clear();
 
-
+  ESP_LOGI(TAG, "invert: %d", display._invert);
   display.invert(display._invert);
 
   for (int page = 0; page < 8; page++) {
