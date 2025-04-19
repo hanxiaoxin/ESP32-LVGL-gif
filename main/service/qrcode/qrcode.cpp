@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
-#include "lib/ssd1306.h"
+#include "display/ssd1306.h"
 
 #define TAG "QRCODE"
 
