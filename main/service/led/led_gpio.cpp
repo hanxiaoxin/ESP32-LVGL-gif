@@ -1,22 +1,30 @@
 #include "driver/gpio.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
-#define LED_GPIO GPIO_NUM_8
+#include "config.h"
 
 #define TAG "LED"
 
-void turn_on() {
+void gpio_led_turn_on() {
   gpio_set_level(LED_GPIO, 0);
   gpio_set_level(GPIO_NUM_0, 1);
 }
 
-void turn_off() {
+void gpio_led_turn_off() {
   gpio_set_level(LED_GPIO, 1);
   gpio_set_level(GPIO_NUM_0, 0);
 }
 
-void led_init(void *params){
-  // 配置 GPIO18 为输出模式
+void gpio_led_blink(void *params) {
+  while(true){
+    gpio_led_turn_on();
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    gpio_led_turn_off();
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+  }
+}
+
+void gpio_led_init(){
   gpio_config_t led_conf = {.pin_bit_mask = (1ULL << LED_GPIO),
                             .mode = GPIO_MODE_OUTPUT,
                             .pull_up_en = GPIO_PULLUP_DISABLE,
@@ -38,12 +46,4 @@ void led_init(void *params){
                              .intr_type = GPIO_INTR_DISABLE};
   gpio_config(&pin1_conf);
   gpio_set_level(GPIO_NUM_1, 0);
-
-  while(true) {
-    turn_on();
-    ESP_LOGI(TAG, "LED turned on");
-    vTaskDelay(2000 / portTICK_PERIOD_MS);
-    turn_off();
-    vTaskDelay(2000 / portTICK_PERIOD_MS);
-  }
 }

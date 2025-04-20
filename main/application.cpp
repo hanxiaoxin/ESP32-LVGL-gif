@@ -1,6 +1,6 @@
 #include "application.h"
 #include "board/button.h"
-#include "led/led.h"
+#include "led/led_pwm.h"
 #include "wifi.h"
 #include <esp_log.h>
 #include <freertos/FreeRTOS.h>
@@ -16,8 +16,9 @@ Application::~Application() {}
 void Application::Start() {
   initButtonEvents();
   StartNetwork();
-
-  xTaskCreatePinnedToCore(led_init, "ledInit", 4096, NULL, 5, NULL, 0);
+  
+  pwm_led_init();
+  xTaskCreatePinnedToCore(pwm_blink, "ledInit", 4096, NULL, 5, NULL, 0);
 }
 
 void Application::initButtonEvents() {

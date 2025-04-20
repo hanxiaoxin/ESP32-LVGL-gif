@@ -1,0 +1,1 @@
+void nvs_flash_init_custom();
