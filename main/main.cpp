@@ -1,8 +1,10 @@
 #include "esp_err.h"
 #include "esp_event.h"
 #include "esp_log.h"
+#include "led/led.h"
 #include "nvs_flash.h"
 #include "wifi.h"
+#include "service/events/events.h"
 
 #define TAG "Application"
 
@@ -19,5 +21,8 @@ extern "C" void app_main(void) {
 
   ESP_ERROR_CHECK(esp_event_loop_create_default());
 
+  initEvents();
+
   StartNetwork();
+  xTaskCreatePinnedToCore(led_init, "ledInit", 4096, NULL, 5, NULL, 1);
 }

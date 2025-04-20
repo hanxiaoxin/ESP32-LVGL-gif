@@ -1,11 +1,17 @@
+# 设置包含路径
 set(INCLUDE_DIRS "." "board" "service" "display")
 
-# 收集 .cpp 源文件
-file(GLOB_RECURSE BOARD_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/board/*.cpp)
-file(GLOB_RECURSE SERVICE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/service/*.cpp)
-file(GLOB_RECURSE DISPLAY_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/display/*.cpp)
+# 匹配 main/board 里的所有 cpp（递归子目录）
+file(GLOB_RECURSE BOARD_SOURCES "board/*.cpp")
+file(GLOB_RECURSE SERVICE_SOURCES "service/*.cpp")
+file(GLOB_RECURSE DISPLAY_SOURCES "display/*.cpp")
 
-# 合并所有源码文件
+# 输出调试信息
+message(STATUS "BOARD_SOURCES = ${BOARD_SOURCES}")
+message(STATUS "SERVICE_SOURCES = ${SERVICE_SOURCES}")
+message(STATUS "DISPLAY_SOURCES = ${DISPLAY_SOURCES}")
+
+# 设置所有源文件
 set(SOURCES
     main.cpp
     ${BOARD_SOURCES}
