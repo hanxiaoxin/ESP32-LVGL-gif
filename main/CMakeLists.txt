@@ -6,14 +6,10 @@ file(GLOB_RECURSE BOARD_SOURCES "board/*.cpp")
 file(GLOB_RECURSE SERVICE_SOURCES "service/*.cpp")
 file(GLOB_RECURSE DISPLAY_SOURCES "display/*.cpp")
 
-# 输出调试信息
-message(STATUS "BOARD_SOURCES = ${BOARD_SOURCES}")
-message(STATUS "SERVICE_SOURCES = ${SERVICE_SOURCES}")
-message(STATUS "DISPLAY_SOURCES = ${DISPLAY_SOURCES}")
-
 # 设置所有源文件
 set(SOURCES
     main.cpp
+    application.cpp
     ${BOARD_SOURCES}
     ${SERVICE_SOURCES}
     ${DISPLAY_SOURCES}

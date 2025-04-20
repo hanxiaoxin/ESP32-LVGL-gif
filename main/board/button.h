@@ -30,6 +30,4 @@ private:
     std::function<void()> on_double_click_;
 };
 
-void initButtonEvents();
-
 #endif // BUTTON_H_

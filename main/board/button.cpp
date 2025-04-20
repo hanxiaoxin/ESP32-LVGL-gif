@@ -1,4 +1,5 @@
 #include "button.h"
+
 #include <esp_log.h>
 
 static const char* TAG = "Button";
