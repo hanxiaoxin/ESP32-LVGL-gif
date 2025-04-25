@@ -15,11 +15,14 @@
 #define LEDC_LS_MODE LEDC_LOW_SPEED_MODE
 
 #define LEDC_TEST_CH_NUM (1)
-#define LEDC_TEST_DUTY (4096)
-#define LEDC_TEST_FADE_TIME (2'000)
+#define LEDC_TEST_MAX_DUTY (8191)
+#define LEDC_TEST_MIN_DUTY (0)
+#define LEDC_TEST_FADE_TIME (2000)
 
 #define LEDC_FADE_END_BIT (1 << 0)
 static EventGroupHandle_t ledc_event_group;
+ledc_channel_config_t ledc_channel;
+static int direction = 1; // 1=渐亮，-1=渐暗
 
 static IRAM_ATTR bool cb_ledc_fade_end_event(const ledc_cb_param_t *param,
                                              void *user_arg) {
@@ -51,8 +54,6 @@ static IRAM_ATTR bool cb_ledc_fade_end_event(const ledc_cb_param_t *param,
   return (taskAwoken == pdTRUE);
 }
 
-ledc_channel_config_t ledc_channel;
-
 void pwm_led_init() {
   // 创建事件组
   ledc_event_group = xEventGroupCreate();
@@ -67,7 +68,7 @@ void pwm_led_init() {
 
   ledc_timer_config(&ledc_timer);
 
-  ledc_channel_config_t ledc_channel = {
+  ledc_channel = {
       .gpio_num = LED_GPIO,                         // GPIO number
       .speed_mode = LEDC_LS_MODE,                   // timer mode
       .channel = LEDC_LS_CH0_CHANNEL,               // channel index
@@ -82,32 +83,27 @@ void pwm_led_init() {
 
   ledc_channel_config(&ledc_channel);
 
-  ledc_fade_func_install(0);
+  ESP_ERROR_CHECK(ledc_fade_func_install(0));
   ledc_cbs_t callbacks = {.fade_cb = cb_ledc_fade_end_event};
   ledc_cb_register(ledc_channel.speed_mode, ledc_channel.channel, &callbacks,
                    NULL);
 }
 
-// 定义回调函数
-void fade_callback(ledc_channel_t channel) {
-  static int direction = 1; // 1=渐亮，-1=渐暗
-  ESP_LOGW(TAG, "Fade callback called, direction: %d", direction);
-  if (direction) {
-    ledc_set_fade_with_time(LEDC_LOW_SPEED_MODE, channel, 4096,
-                            LEDC_TEST_FADE_TIME);
-    direction = 0; // 反转方向
-  } else {
-    ledc_set_fade_with_time(LEDC_LOW_SPEED_MODE, channel, 0,
-                            LEDC_TEST_FADE_TIME);
-    direction = 1; // 反转方向
-  }
-}
+void pwm_blink(void *param) {
+  pwm_led_init();
 
-void pwm_blink(void *params) {
-  while(1){
-    ESP_LOGI(TAG, "LED PWM fade start...");
-    fade_callback(LEDC_CHANNEL_0); // 调用回调函数开始渐变
-    ledc_fade_start(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, LEDC_FADE_NO_WAIT);
-    ESP_LOGI(TAG, "LED PWM fade end...");
+  while (1) {
+    if (direction) {
+      ledc_set_fade_with_time(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0,
+                              LEDC_TEST_MAX_DUTY, LEDC_TEST_FADE_TIME);
+      direction = 0;
+    } else {
+      ledc_set_fade_with_time(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0,
+                              LEDC_TEST_MIN_DUTY, LEDC_TEST_FADE_TIME);
+      direction = 1;
+    }
+
+    ledc_fade_start(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, LEDC_FADE_WAIT_DONE);
+    // ESP_LOGI(TAG, "LED fade done");
   }
 }

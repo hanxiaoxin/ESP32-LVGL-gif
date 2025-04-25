@@ -2,6 +2,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#define OLED_I2C_SCL GPIO_NUM_21
+#define OLED_I2C_SDA GPIO_NUM_20
+
 #define OLED_CONTROL_BYTE_CMD_SINGLE 0x80
 #define OLED_CONTROL_BYTE_CMD_STREAM 0x00
 #define OLED_CONTROL_BYTE_DATA_SINGLE 0xC0
@@ -110,7 +113,8 @@ struct DisplayData {
   gpio_num_t sda;
   int invert;
 
-  DisplayData(gpio_num_t sclPin = GPIO_NUM_21, gpio_num_t sdaPin = GPIO_NUM_20, int invert = 1)
+  DisplayData(gpio_num_t sclPin = OLED_I2C_SCL,
+              gpio_num_t sdaPin = OLED_I2C_SDA, int invert = 1)
       : scl(sclPin), sda(sdaPin), invert(invert) {
     memcpy(Data, DefaultData, sizeof(DefaultData));
   }
@@ -121,9 +125,9 @@ private:
   SSD1306(gpio_num_t sclPin, gpio_num_t sdaPin, int invert);
   ~SSD1306();
 
-  gpio_num_t _scl = GPIO_NUM_21;
-  gpio_num_t _sda = GPIO_NUM_20;
- 
+  gpio_num_t _scl = OLED_I2C_SCL;
+  gpio_num_t _sda = OLED_I2C_SDA;
+
   i2c_master_bus_handle_t bus_handle;
   i2c_master_dev_handle_t dev_handle;
 
