@@ -3,6 +3,7 @@
 
 #define LED_STRIP_RMT_CHANNEL 0
 #define LED_STRIP_GPIO 1
+#define LED_NUM 1
 
 led_strip_handle_t led_strip;
 
@@ -10,10 +11,10 @@ void ws2812_init() {
   // 配置RMT驱动
   led_strip_config_t strip_config = {
       .strip_gpio_num = LED_STRIP_GPIO,
-      .max_leds = 1,
+      .max_leds = LED_NUM,
       .led_model = LED_MODEL_WS2812,
       .color_component_format =
-          LED_STRIP_COLOR_COMPONENT_FMT_RGB, // WS2812通常是GRB
+          LED_STRIP_COLOR_COMPONENT_FMT_GRB, // WS2812通常是GRB
       .flags =
           {
               .invert_out = 0, // 不反转输出
@@ -32,27 +33,26 @@ void ws2812_init() {
 
   led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip);
 
-  // 设置颜色，比如点亮第一个灯，红色
-  led_strip_set_pixel(led_strip, 0, 255, 0, 0);
-  led_strip_refresh(led_strip);                 // 刷新，把数据发出去
+  while(1) {
+    // 设置颜色，比如点亮第一个灯，红色
+    led_strip_set_pixel(led_strip, 0, 255, 0, 0);
+    led_strip_refresh(led_strip); // 刷新，把数据发出去
 
-  // 延时
-  vTaskDelay(pdMS_TO_TICKS(1000));
+    // 延时
+    vTaskDelay(pdMS_TO_TICKS(1000));
 
-  // 设置颜色，
-  led_strip_set_pixel(led_strip, 0, 0, 255, 0); 
-  led_strip_refresh(led_strip);
+    // 设置颜色，
+    led_strip_set_pixel(led_strip, 0, 0, 255, 0);
+    led_strip_refresh(led_strip);
 
-  // 延时
-  vTaskDelay(pdMS_TO_TICKS(1000));
+    // 延时
+    vTaskDelay(pdMS_TO_TICKS(1000));
 
-  // 设置颜色
-  led_strip_set_pixel(led_strip, 0, 255, 0, 255);
-  led_strip_refresh(led_strip);
+    // 设置颜色
+    led_strip_set_pixel(led_strip, 0, 0, 0, 255);
+    led_strip_refresh(led_strip);
 
-  // 延时
-  vTaskDelay(pdMS_TO_TICKS(1000));
-
-  // 关灯
-  led_strip_clear(led_strip);
+    // 延时
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
 }
