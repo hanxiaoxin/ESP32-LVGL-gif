@@ -5,6 +5,7 @@
 #include "freertos/task.h"
 #include "qrcode/qrcode.h"
 #include "ws2812/ws2812.h"
+#include "clock/clock.h"
 
 #define TAG "SERVICE"
 
@@ -35,7 +36,7 @@ void qrcode_ssd1306() {
   vTaskDelete(NULL);
 }
 
-void bangocat_ssd1306() {
+void gif_ssd1306() {
   SSD1306 &display = SSD1306::GetInstance();
 
   esp_err_t err = display.probe_SSD1306();
@@ -49,8 +50,23 @@ void bangocat_ssd1306() {
   showBangoCat(display);
 }
 
+void clock_ssd1306(){
+  SSD1306 &display = SSD1306::GetInstance();
+
+  esp_err_t err = display.probe_SSD1306();
+
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "ssd1306 i2c not found");
+    vTaskDelete(NULL);
+    return;
+  }
+
+  showClock(display);
+}
+
 void runServices() {
   ESP_LOGI(TAG, "Starting services");
-  bangocat_ssd1306();
+  // gif_ssd1306();
   // ws2812_init();
+  clock_ssd1306();
 }

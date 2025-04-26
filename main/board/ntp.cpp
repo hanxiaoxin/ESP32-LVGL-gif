@@ -10,6 +10,8 @@
 
 static const char *TAG = "NTP";
 
+struct tm timeinfo;
+
 void time_sync_notification_cb(struct timeval *tv) {
   ESP_LOGI(TAG, "Notification of a time synchronization event");
 }
@@ -44,10 +46,8 @@ void init_ntp(){
 
   // 获取并打印当前时间
   time_t now;
-  struct tm timeinfo;
   time(&now);
   localtime_r(&now, &timeinfo);
-
   char strftime_buf[64];
   strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
   ESP_LOGI(TAG, "The current date/time is: %s", strftime_buf);
