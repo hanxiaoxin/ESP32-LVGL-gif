@@ -1,1 +1,2 @@
 #define LED_GPIO GPIO_NUM_8
+#define LED_PWM_GPIO GPIO_NUM_0

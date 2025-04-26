@@ -1,1 +1,1 @@
-void initSSD1306();
+void runServices();

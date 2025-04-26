@@ -33,7 +33,7 @@ DisplayData getQrcode() {
   ESP_LOGW(TAG, "mac address: %s", mac_str.c_str());
 
   std::string url =
-      std::format("http://static.hanxiaoxin.cn/qrcode-json/{}.json", mac_str.c_str());
+      std::format("https://static.hanxiaoxin.cn/qrcode-json/{}.json", mac_str);
   ESP_LOGW(TAG, "qrcode config url: %s", url.c_str());
 
   Http *http = new EspHttp();

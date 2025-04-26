@@ -1,3 +1,5 @@
+#pragma once
+
 #include "driver/i2c_master.h"
 #include <stdint.h>
 #include <string.h>
@@ -108,7 +110,7 @@ static uint8_t DefaultData[] = {
 };
 
 struct DisplayData {
-  uint8_t Data[512];
+  uint8_t Data[1024];
   gpio_num_t scl;
   gpio_num_t sda;
   int invert;
@@ -137,9 +139,10 @@ private:
   uint16_t _pages = 8; // 64高度是8,32高度是4
 
 public:
-  int _invert = 1;
+  int _invert = 0;
 
-  static SSD1306 &GetInstance(gpio_num_t scl, gpio_num_t sda, int invert) {
+  static SSD1306 &GetInstance(gpio_num_t scl = OLED_I2C_SCL,
+                              gpio_num_t sda = OLED_I2C_SDA, int invert = 0) {
     static SSD1306 instance(scl, sda, invert);
     return instance;
   }

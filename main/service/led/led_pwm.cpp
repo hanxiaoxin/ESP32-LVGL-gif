@@ -68,18 +68,17 @@ void pwm_led_init() {
 
   ledc_timer_config(&ledc_timer);
 
-  ledc_channel = {
-      .gpio_num = LED_GPIO,                         // GPIO number
-      .speed_mode = LEDC_LS_MODE,                   // timer mode
-      .channel = LEDC_LS_CH0_CHANNEL,               // channel index
-      .intr_type = LEDC_INTR_FADE_END,              // interrupt type
-      .timer_sel = LEDC_LS_TIMER,                   // timer index
-      .duty = 0,                                    // duty cycle
-      .hpoint = 0,                                  // hpoint value
-      .sleep_mode = LEDC_SLEEP_MODE_NO_ALIVE_NO_PD, // sleep mode
-      .flags = {
-          .output_invert = 0,
-      }};
+  ledc_channel = {.gpio_num = LED_PWM_GPIO,        // GPIO number
+                  .speed_mode = LEDC_LS_MODE,      // timer mode
+                  .channel = LEDC_LS_CH0_CHANNEL,  // channel index
+                  .intr_type = LEDC_INTR_FADE_END, // interrupt type
+                  .timer_sel = LEDC_LS_TIMER,      // timer index
+                  .duty = 0,                       // duty cycle
+                  .hpoint = 0,                     // hpoint value
+                  .sleep_mode = LEDC_SLEEP_MODE_NO_ALIVE_NO_PD, // sleep mode
+                  .flags = {
+                      .output_invert = 0,
+                  }};
 
   ledc_channel_config(&ledc_channel);
 

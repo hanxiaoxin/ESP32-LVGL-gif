@@ -5,6 +5,7 @@
 #include <esp_log.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include "service.h"
 
 #define TAG "Application"
 
@@ -17,6 +18,7 @@ void Application::Start() {
   initButtonEvents();
   StartNetwork();
   xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
+  runServices();
 }
 
 void Application::initButtonEvents() {

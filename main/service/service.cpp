@@ -3,10 +3,11 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "qrcode/qrcode.h"
+#include "bangocat/cat.h"
 
 #define TAG "SERVICE"
 
-void initSSD1306() {
+void qrcode_ssd1306() {
   DisplayData dd = getQrcode();
 
   SSD1306 &display = SSD1306::GetInstance(dd.scl, dd.sda, dd.invert);
@@ -18,10 +19,11 @@ void initSSD1306() {
     vTaskDelete(NULL);
     return;
   }
-
+  
+  display.invert(1);
   display.init();
   display.clear();
-
+  
   ESP_LOGI(TAG, "invert: %d", display._invert);
   display.invert(display._invert);
 
@@ -31,3 +33,19 @@ void initSSD1306() {
 
   vTaskDelete(NULL);
 }
+
+void bangocat_ssd1306() {
+  SSD1306 &display = SSD1306::GetInstance();
+
+  esp_err_t err = display.probe_SSD1306();
+
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "ssd1306 i2c not found");
+    vTaskDelete(NULL);
+    return;
+  }
+
+  showBangoCat(display);
+}
+
+void runServices() { bangocat_ssd1306(); }
