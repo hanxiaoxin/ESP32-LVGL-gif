@@ -1,8 +1,9 @@
 dependencies:
   hanxiaoxin/esp-wifi-connect:
-    version: "2.3.3"
-    path: "../components/esp-wifi-connect"
+    version: 2.3.3
+    path: ../components/esp-wifi-connect
   hanxiaoxin/esp-ml307:
-      version: "1.9.0"
-      path: "../components/esp-ml307"
-  espressif/button: "^3.3.1"
+    version: 1.9.0
+    path: ../components/esp-ml307
+  espressif/button: ^3.3.1
+  espressif/led_strip: ^3.0.1

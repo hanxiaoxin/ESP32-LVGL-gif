@@ -16,9 +16,9 @@ Application::~Application() {}
 
 void Application::Start() {
   initButtonEvents();
-  StartNetwork();
+  // StartNetwork();
   xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
-  runServices();
+  // runServices();
 }
 
 void Application::initButtonEvents() {

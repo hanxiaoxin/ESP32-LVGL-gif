@@ -1,9 +1,10 @@
+#include "bangocat/cat.h"
 #include "display/ssd1306.h"
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "qrcode/qrcode.h"
-#include "bangocat/cat.h"
+#include "ws2812/ws2812.h"
 
 #define TAG "SERVICE"
 
@@ -19,11 +20,11 @@ void qrcode_ssd1306() {
     vTaskDelete(NULL);
     return;
   }
-  
+
   display.invert(1);
   display.init();
   display.clear();
-  
+
   ESP_LOGI(TAG, "invert: %d", display._invert);
   display.invert(display._invert);
 
@@ -48,4 +49,4 @@ void bangocat_ssd1306() {
   showBangoCat(display);
 }
 
-void runServices() { bangocat_ssd1306(); }
+void runServices() { ws2812_init(); }
