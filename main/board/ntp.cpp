@@ -36,6 +36,8 @@ void obtain_time(void) {
     vTaskDelay(pdMS_TO_TICKS(2000));
     time(&now);
     localtime_r(&now, &timeinfo);
+    setenv("TZ", "CST-8", 1);
+    tzset();
   }
 }
 

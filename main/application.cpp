@@ -1,6 +1,7 @@
 #include "application.h"
 #include "board/button.h"
 #include "board/ntp.h"
+#include "board/serial.h"
 #include "led/led.h"
 #include "service.h"
 #include "wifi.h"
@@ -19,6 +20,7 @@ void Application::Start() {
   initButtonEvents();
   StartNetwork();
   init_ntp();
+  init_uart();
   xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
   runServices();
 }
