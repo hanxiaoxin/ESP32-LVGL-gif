@@ -1,4 +1,4 @@
-#include "bob_data.h"
+#include "bangocat_data.h"
 #include "display/ssd1306.h"
 #include "esp_log.h"
 #include <esp_err.h>
@@ -17,7 +17,7 @@ void showBangoCat(SSD1306 &display) {
       for (int page = 0; page < 8; page++) {
         display.display_image(page, 0, &dd.Data[page * 128], 128);
       }
-      vTaskDelay(10 / portTICK_PERIOD_MS);
+      vTaskDelay(delay / portTICK_PERIOD_MS);
     }
   }
 }

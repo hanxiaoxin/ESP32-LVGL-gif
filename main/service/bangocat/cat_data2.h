@@ -2302,3 +2302,4 @@ const uint8_t *allArray[26] = {
     cat_frame_18_delay_0, cat_frame_19_delay_0, cat_frame_20_delay_0,
     cat_frame_21_delay_0, cat_frame_22_delay_0, cat_frame_23_delay_0,
     cat_frame_24_delay_0, cat_frame_25_delay_0};
+const int delay = 10;

@@ -49,4 +49,8 @@ void bangocat_ssd1306() {
   showBangoCat(display);
 }
 
-void runServices() { ws2812_init(); }
+void runServices() {
+  ESP_LOGI(TAG, "Starting services");
+  bangocat_ssd1306();
+  // ws2812_init();
+}

@@ -29924,3 +29924,4 @@ const uint8_t* allArray[440] = {
 	cat_frame_439_delay_0,
 	cat_frame_440_delay_0
 };
+const int delay = 10;

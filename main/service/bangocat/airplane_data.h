@@ -9917,3 +9917,4 @@ const uint8_t *allArray[112] = {
     airplane_frame_106_delay_0, airplane_frame_107_delay_0,
     airplane_frame_108_delay_0, airplane_frame_109_delay_0,
     airplane_frame_110_delay_0, airplane_frame_111_delay_0};
+const int delay = 10;

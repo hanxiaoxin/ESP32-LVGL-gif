@@ -11333,3 +11333,4 @@ const uint8_t *allArray[128] = {
     cat_frame_122_delay_0, cat_frame_123_delay_0,
     cat_frame_124_delay_0, cat_frame_125_delay_0,
     cat_frame_126_delay_0, cat_frame_127_delay_0};
+const int delay = 10;

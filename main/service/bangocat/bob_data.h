@@ -3269,3 +3269,4 @@ const uint8_t* allArray[48] = {
 	bobframe_46_delay_0,
 	bobframe_47_delay_0
 };
+const int delay = 10;
