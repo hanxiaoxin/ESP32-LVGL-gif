@@ -1,11 +1,12 @@
 #include "application.h"
 #include "board/button.h"
+#include "board/ntp.h"
 #include "led/led.h"
+#include "service.h"
 #include "wifi.h"
 #include <esp_log.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
-#include "service.h"
 
 #define TAG "Application"
 
@@ -16,7 +17,8 @@ Application::~Application() {}
 
 void Application::Start() {
   initButtonEvents();
-  // StartNetwork();
+  StartNetwork();
+  init_ntp();
   xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
   runServices();
 }

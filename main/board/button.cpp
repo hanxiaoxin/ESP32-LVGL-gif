@@ -29,8 +29,9 @@ Button::Button(gpio_num_t gpio_num, bool active_high) : gpio_num_(gpio_num) {
         .short_press_time = 50,
         .gpio_button_config = {
             .gpio_num = gpio_num,
-            .active_level = static_cast<uint8_t>(active_high ? 1 : 0)
-        }
+            .active_level = static_cast<uint8_t>(active_high ? 1 : 0),
+            .disable_pull = false,
+        },
     };
     button_handle_ = iot_button_create(&button_config);
     if (button_handle_ == NULL) {

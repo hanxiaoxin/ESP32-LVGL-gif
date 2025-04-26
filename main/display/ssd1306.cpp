@@ -4,6 +4,7 @@
 #include "freertos/task.h"
 #include <stdint.h>
 #include <string.h>
+#include "font.h"
 
 #define IC2_MASTER_FREQ_HZ 400000
 #define I2C_TICKS_TO_WAIT 100
@@ -12,6 +13,11 @@
 #define TAG "SSD1306"
 #include "driver/i2c_master.h"
 #include "esp_log.h"
+
+void SSD1306::error(esp_err_t res) {
+  ESP_LOGE(TAG, "Could not write to device [0x%02x at %d]: %d (%s)",
+           I2C_ADDRESS, I2C_NUM, res, esp_err_to_name(res));
+}
 
 SSD1306::SSD1306(gpio_num_t scl, gpio_num_t sda, int invert)
     : _scl(scl), _sda(sda), _invert(invert) {
@@ -187,11 +193,6 @@ void SSD1306::display_image(int page, int seg, uint8_t *images, int width) {
   free(out_buf);
 }
 
-void SSD1306::error(esp_err_t res) {
-  ESP_LOGE(TAG, "Could not write to device [0x%02x at %d]: %d (%s)",
-           I2C_ADDRESS, I2C_NUM, res, esp_err_to_name(res));
-}
-
 void SSD1306::probe() {
   esp_err_t res;
   int foundCount = 0;
@@ -202,6 +203,27 @@ void SSD1306::probe() {
       foundCount++;
     }
   }
+}
+
+esp_err_t SSD1306::contrast(int contrast) {
+  uint8_t _contrast = contrast;
+  if (contrast < 0x0)
+    _contrast = 0;
+  if (contrast > 0xFF)
+    _contrast = 0xFF;
+
+  uint8_t out_buf[3];
+  int out_index = 0;
+  out_buf[out_index++] = OLED_CONTROL_BYTE_CMD_STREAM; // 00
+  out_buf[out_index++] = OLED_CMD_SET_CONTRAST;        // 81
+  out_buf[out_index++] = _contrast;
+
+  esp_err_t res =
+      i2c_master_transmit(dev_handle, out_buf, 3, I2C_TICKS_TO_WAIT);
+  if (res != ESP_OK) {
+    error(res);
+  }
+  return res;
 }
 
 esp_err_t SSD1306::probe_SSD1306() {
@@ -218,4 +240,96 @@ esp_err_t SSD1306::probe_SSD1306() {
   }
 
   return err;
+}
+
+void SSD1306::hardware_scroll(scroll_type_t scroll) {
+  uint8_t out_buf[11];
+  int out_index = 0;
+  out_buf[out_index++] = OLED_CONTROL_BYTE_CMD_STREAM; // 00
+
+  if (scroll == SCROLL_RIGHT) {
+    out_buf[out_index++] = OLED_CMD_HORIZONTAL_RIGHT; // 26
+    out_buf[out_index++] = 0x00;                      // Dummy byte
+    out_buf[out_index++] = 0x00;                   // Define start page address
+    out_buf[out_index++] = 0x07;                   // Frame frequency
+    out_buf[out_index++] = 0x07;                   // Define end page address
+    out_buf[out_index++] = 0x00;                   //
+    out_buf[out_index++] = 0xFF;                   //
+    out_buf[out_index++] = OLED_CMD_ACTIVE_SCROLL; // 2F
+  }
+
+  if (scroll == SCROLL_LEFT) {
+    out_buf[out_index++] = OLED_CMD_HORIZONTAL_LEFT; // 27
+    out_buf[out_index++] = 0x00;                     // Dummy byte
+    out_buf[out_index++] = 0x00;                   // Define start page address
+    out_buf[out_index++] = 0x07;                   // Frame frequency
+    out_buf[out_index++] = 0x07;                   // Define end page address
+    out_buf[out_index++] = 0x00;                   //
+    out_buf[out_index++] = 0xFF;                   //
+    out_buf[out_index++] = OLED_CMD_ACTIVE_SCROLL; // 2F
+  }
+
+  if (scroll == SCROLL_DOWN) {
+    out_buf[out_index++] = OLED_CMD_CONTINUOUS_SCROLL; // 29
+    out_buf[out_index++] = 0x00;                       // Dummy byte
+    out_buf[out_index++] = 0x00; // Define start page address
+    out_buf[out_index++] = 0x07; // Frame frequency
+    // out_buf[out_index++] = 0x01; // Define end page address
+    out_buf[out_index++] = 0x00; // Define end page address
+    out_buf[out_index++] = 0x3F; // Vertical scrolling offset
+
+    out_buf[out_index++] = OLED_CMD_VERTICAL; // A3
+    out_buf[out_index++] = 0x00;
+    if (_height == 64)
+      // out_buf[out_index++] = 0x7F;
+      out_buf[out_index++] = 0x40;
+    if (_height == 32)
+      out_buf[out_index++] = 0x20;
+    out_buf[out_index++] = OLED_CMD_ACTIVE_SCROLL; // 2F
+  }
+
+  if (scroll == SCROLL_UP) {
+    out_buf[out_index++] = OLED_CMD_CONTINUOUS_SCROLL; // 29
+    out_buf[out_index++] = 0x00;                       // Dummy byte
+    out_buf[out_index++] = 0x00; // Define start page address
+    out_buf[out_index++] = 0x07; // Frame frequency
+    // out_buf[out_index++] = 0x01; // Define end page address
+    out_buf[out_index++] = 0x00; // Define end page address
+    out_buf[out_index++] = 0x01; // Vertical scrolling offset
+
+    out_buf[out_index++] = OLED_CMD_VERTICAL; // A3
+    out_buf[out_index++] = 0x00;
+    if (_height == 64)
+      // out_buf[out_index++] = 0x7F;
+      out_buf[out_index++] = 0x40;
+    if (_height == 32)
+      out_buf[out_index++] = 0x20;
+    out_buf[out_index++] = OLED_CMD_ACTIVE_SCROLL; // 2F
+  }
+
+  if (scroll == SCROLL_STOP) {
+    out_buf[out_index++] = OLED_CMD_DEACTIVE_SCROLL; // 2E
+  }
+
+  esp_err_t res = i2c_master_transmit(dev_handle, out_buf, out_index,
+                                      I2C_TICKS_TO_WAIT);
+  if (res != ESP_OK) {
+    error(res);
+  }
+}
+
+void SSD1306::display_text(int page, const char *text, int text_len) {
+  if (page >= _pages)
+    return;
+  int _text_len = text_len;
+  if (_text_len > 16)
+    _text_len = 16;
+
+  int seg = 0;
+  uint8_t image[8];
+  for (int i = 0; i < _text_len; i++) {
+    memcpy(image, font8x8_basic_tr[(uint8_t)text[i]], 8);
+    display_image(page, seg, image, 8);
+    seg = seg + 8;
+  }
 }

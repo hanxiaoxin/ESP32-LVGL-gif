@@ -63,6 +63,16 @@
 
 #define CONFIG_OFFSETX 0
 
+typedef enum {
+  SCROLL_RIGHT = 1,
+  SCROLL_LEFT = 2,
+  SCROLL_DOWN = 3,
+  SCROLL_UP = 4,
+  PAGE_SCROLL_DOWN = 5,
+  PAGE_SCROLL_UP = 6,
+  SCROLL_STOP = 7
+} scroll_type_t;
+
 static uint8_t DefaultData[] = {
     0x00, 0x00, 0xfc, 0xfc, 0x0c, 0xcc, 0xec, 0xec, 0xec, 0xec, 0xec, 0x0c,
     0x0c, 0xfc, 0xfc, 0x00, 0x84, 0x8c, 0x90, 0x90, 0x70, 0x70, 0xf0, 0xf0,
@@ -164,7 +174,13 @@ public:
 
   void display_image(int page, int seg, uint8_t *images, int width);
 
+  void display_text(int page, const char *text, int text_len);
+
   void probe();
+
+  esp_err_t contrast(int contrast);
+
+  void hardware_scroll(scroll_type_t scroll);
 
   void error(esp_err_t res);
 
