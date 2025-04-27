@@ -28,8 +28,8 @@ void showClock(SSD1306 &display) {
     ESP_LOGI(TAG, "Show current date/time is: %s %s", date_str, time_str);
 
     char buf[96];
-    snprintf(buf, sizeof(buf), "Date: %s Time: %s", date_str, time_str);
-    send_data(buf, strlen(buf));
+    snprintf(buf, sizeof(buf), "Date: %s Time: %s\n", date_str, time_str);
+    uart_send_data(buf);
 
     vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
