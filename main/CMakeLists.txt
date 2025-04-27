@@ -10,6 +10,7 @@ file(GLOB_RECURSE DISPLAY_SOURCES "display/*.cpp")
 set(SOURCES
     main.cpp
     application.cpp
+    background_task.cpp
     ${BOARD_SOURCES}
     ${SERVICE_SOURCES}
     ${DISPLAY_SOURCES}
