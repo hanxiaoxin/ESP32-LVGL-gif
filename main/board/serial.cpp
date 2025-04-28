@@ -2,6 +2,7 @@
 #include "driver/uart.h"
 #include "esp_log.h"
 #include <string.h>
+#include "config.h"
 
 static const char *TAG = "UART";
 

@@ -1,2 +1,11 @@
+// LED
 #define LED_GPIO GPIO_NUM_8
 #define LED_PWM_GPIO GPIO_NUM_0
+
+// OLED
+#define OLED_I2C_SCL GPIO_NUM_21
+#define OLED_I2C_SDA GPIO_NUM_20
+
+// UART
+#define UART_TX GPIO_NUM_6
+#define UART_RX GPIO_NUM_7

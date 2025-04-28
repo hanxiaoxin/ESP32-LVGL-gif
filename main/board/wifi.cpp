@@ -1,3 +1,4 @@
+#include "esp_wifi.h"
 #include "settings.h"
 #include <esp_log.h>
 #include <freertos/FreeRTOS.h>
@@ -9,19 +10,15 @@
 static const char *TAG = "WifiBoard";
 static bool wifi_config_mode_ = false;
 
-void wifiInit() {
-  Settings settings("wifi", true);
-  int force_dp = settings.GetInt("force_ap");
-  // set force ap = 1
-  if (force_dp) {
-    ESP_LOGW(TAG, "force_ap is set to 1");
+#define DEFAULT_WIFI 0
+#define LOW_WIFI_POWER 0
+
+void set_wifi_power() {
+  esp_err_t err = esp_wifi_set_max_tx_power(34);
+  if (err != ESP_OK) {
+    ESP_LOGE("WIFI", "Failed to set TX power: %s", esp_err_to_name(err));
   } else {
-    ESP_LOGW(TAG, "force_ap is set to 0");
-  }
-  wifi_config_mode_ = force_dp == 1;
-  if (wifi_config_mode_) {
-    ESP_LOGI(TAG, "force_ap is set to 1, reset to 0");
-    settings.SetInt("force_ap", 0);
+    ESP_LOGI("WIFI", "WiFi TX power set to 8.5dBm");
   }
 }
 
@@ -48,7 +45,15 @@ void EnterWifiConfigMode() {
 }
 
 void StartNetwork() {
-  // User can press BOOT button while starting to enter WiFi configuration mode
+  if (DEFAULT_WIFI) {
+    Settings settings("wifi", true);
+    settings.SetString("ssid", "iKuai2G-cc7b");
+    settings.SetString("password", "314314314");
+    ESP_LOGW(TAG, "Default WiFi SSID: %s", settings.GetString("ssid").c_str());
+  }
+
+  // User can press BOOT button while starting to enter WiFi configuration
+  // mode
   if (wifi_config_mode_) {
     EnterWifiConfigMode();
     return;
@@ -65,6 +70,10 @@ void StartNetwork() {
 
   auto &wifi_station = WifiStation::GetInstance();
   wifi_station.Start();
+
+  if (LOW_WIFI_POWER) {
+    set_wifi_power();
+  }
 
   // Try to connect to WiFi, if failed, launch the WiFi configuration AP
   if (!wifi_station.WaitForConnected(60 * 1000)) {

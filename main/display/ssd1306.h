@@ -3,9 +3,7 @@
 #include "driver/i2c_master.h"
 #include <stdint.h>
 #include <string.h>
-
-#define OLED_I2C_SCL GPIO_NUM_21
-#define OLED_I2C_SDA GPIO_NUM_20
+#include "config.h"
 
 #define OLED_CONTROL_BYTE_CMD_SINGLE 0x80
 #define OLED_CONTROL_BYTE_CMD_STREAM 0x00
