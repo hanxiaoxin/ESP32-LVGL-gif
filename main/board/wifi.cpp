@@ -7,6 +7,8 @@
 #include <wifi_configuration_ap.h>
 #include <wifi_station.h>
 #include "font_awesome_symbols.h"
+#include "board/board.h"
+#include "lang_config.h"
 
 static const char *TAG = "WifiBoard";
 static bool wifi_config_mode_ = false;
@@ -83,6 +85,11 @@ void StartNetwork() {
     EnterWifiConfigMode();
     return;
   }
+
+  //Success
+  auto display_ = Board::GetInstance().GetDisplay();
+  display_->SetStatus(Lang::Strings::CONNECTED_TO);
+  display_->SetIcon(FONT_AWESOME_EMOJI_NEUTRAL); 
 }
 
 void ResetWifiConfiguration() {

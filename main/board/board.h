@@ -3,6 +3,9 @@
 
 #include "button.h"
 #include "display/display.h"
+#include "driver/i2c_master.h"
+#include <esp_lcd_panel_ops.h>
+#include <esp_lcd_panel_vendor.h>
 #include <string>
 
 class Display;
@@ -13,7 +16,13 @@ private:
   Button boot_button_;
   Button touch_button_;
 
+  i2c_master_bus_handle_t display_i2c_bus_;
+  esp_lcd_panel_io_handle_t panel_io_ = nullptr;
+  esp_lcd_panel_handle_t panel_ = nullptr;
+
   void initButtonEvents();
+  void initOledDisplay();
+  void initLcdDisplay();
 
 protected:
   Board();
@@ -39,5 +48,6 @@ public:
   std::string GetJSON();
   std::string GetBoardJson();
   const char *GetNetworkStateIcon();
+  esp_err_t probe_SSD1306();
 };
 #endif // BOARD_H

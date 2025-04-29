@@ -1,3 +1,5 @@
+#ifndef CONFIG_H
+
 // BOARD
 #define BOOT_BUTTON_GPIO GPIO_NUM_9
 #define TOUCH_BUTTON_GPIO GPIO_NUM_10
@@ -7,9 +9,18 @@
 #define LED_PWM_GPIO GPIO_NUM_0
 
 // OLED
+#define OLED_I2C_ADDRESS 0X3C
 #define OLED_I2C_SCL GPIO_NUM_21
 #define OLED_I2C_SDA GPIO_NUM_20
 
 // UART
 #define UART_TX GPIO_NUM_6
 #define UART_RX GPIO_NUM_7
+
+// DISPLAY
+#define DISPLAY_WIDTH 128
+#define DISPLAY_HEIGHT 64
+#define DISPLAY_MIRROR_X true
+#define DISPLAY_MIRROR_Y true
+
+#endif // CONFIG_H

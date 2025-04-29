@@ -34,6 +34,7 @@ void init_uart() {
   ESP_ERROR_CHECK(uart_param_config(UART_PORT_NUM, &uart_config));
   ESP_ERROR_CHECK(uart_set_pin(UART_PORT_NUM, UART_TX, UART_RX,
                                UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+  ESP_LOGI(TAG, "UART initialized");
   /*
     uint8_t *data = (uint8_t *)"hello world12345\r\n";
 

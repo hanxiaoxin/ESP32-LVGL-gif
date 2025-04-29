@@ -1,6 +1,11 @@
 #include "board.h"
 #include "assets/lang_config.h"
+#include "config.h"
 #include "display/display.h"
+#include "display/lcd_display.h"
+#include "display/oled_display.h"
+#include "driver/i2c_master.h"
+#include "esp_app_desc.h"
 #include "font_awesome_symbols.h"
 #include "settings.h"
 #include "system_info.h"
@@ -9,9 +14,12 @@
 #include <esp_ota_ops.h>
 #include <esp_random.h>
 #include <wifi_station.h>
-#include "config.h"
 
 #define TAG "Board"
+
+// LVGL
+LV_FONT_DECLARE(font_puhui_14_1);
+LV_FONT_DECLARE(font_awesome_14_1);
 
 Board::Board():boot_button_(BOOT_BUTTON_GPIO),
     touch_button_(TOUCH_BUTTON_GPIO) {
@@ -23,6 +31,11 @@ Board::Board():boot_button_(BOOT_BUTTON_GPIO),
   }
   ESP_LOGI(TAG, "UUID=%s SKU=%s", uuid_.c_str(), board_name.c_str());
   initButtonEvents();
+
+  // ssd1306
+  initOledDisplay();
+
+  // initLcdDisplay();
 }
 
 std::string Board::GetBoardType() { return board_type; }
@@ -195,4 +208,93 @@ void Board::initButtonEvents() {
   touch_button_.OnPressDown([]() { ESP_LOGI(TAG, "Touch button pressed"); });
   touch_button_.OnClick([]() { ESP_LOGI(TAG, "Touch button click"); });
   touch_button_.OnPressUp([]() { ESP_LOGI(TAG, "Touch button released"); });
+}
+
+void Board::initOledDisplay() {
+  i2c_master_bus_config_t i2c_mst_config = {
+      .i2c_port = I2C_NUM_0,
+      .sda_io_num = OLED_I2C_SDA,
+      .scl_io_num = OLED_I2C_SCL,
+      .clk_source = I2C_CLK_SRC_DEFAULT,
+      .glitch_ignore_cnt = 7,
+      .intr_priority = 0,
+      .trans_queue_depth = 0,
+      .flags = {.enable_internal_pullup = true, .allow_pd = false}};
+  ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_mst_config, &display_i2c_bus_));
+
+  esp_err_t err = probe_SSD1306();
+
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "ssd1306 i2c not found");
+    return;
+  }
+
+  ESP_LOGI(TAG, "OLED I2C initialized");
+
+  // SSD1306 config
+  esp_lcd_panel_io_i2c_config_t io_config = {
+      .dev_addr = 0x3C,
+      .on_color_trans_done = nullptr,
+      .user_ctx = nullptr,
+      .control_phase_bytes = 1,
+      .dc_bit_offset = 6,
+      .lcd_cmd_bits = 8,
+      .lcd_param_bits = 8,
+      .flags =
+          {
+              .dc_low_on_data = 0,
+              .disable_control_phase = 0,
+          },
+      .scl_speed_hz = 400 * 1000,
+  };
+
+  ESP_ERROR_CHECK(
+      esp_lcd_new_panel_io_i2c_v2(display_i2c_bus_, &io_config, &panel_io_));
+
+  ESP_LOGI(TAG, "Install SSD1306 driver");
+  esp_lcd_panel_dev_config_t panel_config = {};
+  panel_config.reset_gpio_num = -1;
+  panel_config.bits_per_pixel = 1;
+
+  esp_lcd_panel_ssd1306_config_t ssd1306_config = {
+      .height = static_cast<uint8_t>(DISPLAY_HEIGHT),
+  };
+  panel_config.vendor_config = &ssd1306_config;
+  ESP_LOGI(TAG, "SSD1306 driver installed");
+  ESP_ERROR_CHECK(esp_lcd_new_panel_ssd1306(panel_io_, &panel_config, &panel_));
+
+  // Reset the display
+  ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_));
+  if (esp_lcd_panel_init(panel_) != ESP_OK) {
+    ESP_LOGE(TAG, "Failed to initialize display");
+    return;
+  }
+
+  // Set the display to on
+  ESP_LOGI(TAG, "Turning display on");
+  ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
+  delete display_;
+  display_ = new OledDisplay(panel_io_, panel_, DISPLAY_WIDTH, DISPLAY_HEIGHT,
+                             DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y,
+                             {&font_puhui_14_1, &font_awesome_14_1});
+}
+
+void Board::initLcdDisplay() {
+  ESP_LOGI(TAG, "LCD display initialized");
+}
+
+esp_err_t Board::probe_SSD1306() {
+  int count = 10;
+  esp_err_t err;
+  while (count) {
+    err = i2c_master_probe(display_i2c_bus_, OLED_I2C_ADDRESS, 50);
+
+    if (err == ESP_OK) {
+      return err;
+    }
+
+    count--;
+  }
+
+  return err;
 }
