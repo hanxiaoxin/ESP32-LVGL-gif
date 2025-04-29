@@ -26,6 +26,7 @@ void set_wifi_power() {
 }
 
 void EnterWifiConfigMode() {
+  auto display_ = Board::GetInstance().GetDisplay();
   auto &wifi_ap = WifiConfigurationAp::GetInstance();
   wifi_ap.SetSsidPrefix("Hanxiaoxin");
   wifi_ap.Start();
@@ -37,8 +38,12 @@ void EnterWifiConfigMode() {
   hint += wifi_ap.GetWebServerUrl();
   hint += "\n\n";
 
-  // Wait forever until reset after configuration
-  while (true) {
+  display_->SetStatus(Lang::Strings::CONNECT_TO_HOTSPOT);
+  display_->SetIcon(FONT_AWESOME_EMOJI_THINKING);
+  display_->SetChatMessage("",hint.c_str());
+
+      // Wait forever until reset after configuration
+      while (true) {
     int free_sram = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
     int min_free_sram = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
     ESP_LOGI(TAG, "Free internal: %u minimal internal: %u", free_sram,
@@ -48,6 +53,7 @@ void EnterWifiConfigMode() {
 }
 
 void StartNetwork() {
+  auto display_ = Board::GetInstance().GetDisplay();
   if (DEFAULT_WIFI) {
     Settings settings("wifi", true);
     settings.SetString("ssid", "iKuai2G-cc7b");
@@ -87,7 +93,6 @@ void StartNetwork() {
   }
 
   //Success
-  auto display_ = Board::GetInstance().GetDisplay();
   display_->SetStatus(Lang::Strings::CONNECTED_TO);
   display_->SetIcon(FONT_AWESOME_EMOJI_NEUTRAL); 
 }

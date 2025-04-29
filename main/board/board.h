@@ -49,5 +49,6 @@ public:
   std::string GetBoardJson();
   const char *GetNetworkStateIcon();
   esp_err_t probe_SSD1306();
+  bool GetBatteryLevel(int &level, bool &charging, bool &discharging);
 };
 #endif // BOARD_H

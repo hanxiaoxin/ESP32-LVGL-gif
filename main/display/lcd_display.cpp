@@ -180,21 +180,29 @@ RgbLcdDisplay::RgbLcdDisplay(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_h
     const lvgl_port_display_cfg_t display_cfg = {
         .io_handle = panel_io_,
         .panel_handle = panel_,
+        .control_handle = nullptr,
         .buffer_size = static_cast<uint32_t>(width_ * 10),
         .double_buffer = true,
+        .trans_size = static_cast<uint32_t>(width_ * 40),
         .hres = static_cast<uint32_t>(width_),
         .vres = static_cast<uint32_t>(height_),
-        .rotation = {
-            .swap_xy = swap_xy,
-            .mirror_x = mirror_x,
-            .mirror_y = mirror_y,
-        },
-        .flags = {
-            .buff_dma = 1,
-            .swap_bytes = 0,
-            .full_refresh = 1,
-            .direct_mode = 1,
-        },
+        .monochrome = false,
+        .rotation =
+            {
+                .swap_xy = swap_xy,
+                .mirror_x = mirror_x,
+                .mirror_y = mirror_y,
+            },
+        .color_format = LV_COLOR_FORMAT_RGB565,
+        .flags =
+            {
+                .buff_dma = 1,
+                .buff_spiram = 0,
+                .sw_rotate = 0,
+                .swap_bytes = 0,
+                .full_refresh = 1,
+                .direct_mode = 1,
+            },
     };
 
     const lvgl_port_display_rgb_cfg_t rgb_cfg = {
@@ -313,21 +321,14 @@ void LcdDisplay::SetupUI() {
     lv_obj_set_style_pad_all(status_bar_, 0, 0);
     lv_obj_set_style_border_width(status_bar_, 0, 0);
     lv_obj_set_style_pad_column(status_bar_, 0, 0);
-    lv_obj_set_style_pad_left(status_bar_, 2, 0);
-    lv_obj_set_style_pad_right(status_bar_, 2, 0);
+    lv_obj_set_style_pad_left(status_bar_, 16, 0);
+    lv_obj_set_style_pad_right(status_bar_, 16, 0);
 
     network_label_ = lv_label_create(status_bar_);
     lv_label_set_text(network_label_, "");
-    lv_obj_set_style_pad_left(network_label_, 14, 0);
+    lv_obj_set_style_pad_left(network_label_, 0, 0);
     lv_obj_set_style_text_font(network_label_, fonts_.icon_font, 0);
     lv_obj_set_style_text_color(network_label_, current_theme.text, 0);
-
-    notification_label_ = lv_label_create(status_bar_);
-    lv_obj_set_flex_grow(notification_label_, 1);
-    lv_obj_set_style_text_align(notification_label_, LV_TEXT_ALIGN_CENTER, 0);
-    lv_obj_set_style_text_color(notification_label_, current_theme.text, 0);
-    lv_label_set_text(notification_label_, "");
-    lv_obj_add_flag(notification_label_, LV_OBJ_FLAG_HIDDEN);
 
     status_label_ = lv_label_create(status_bar_);
     lv_obj_set_flex_grow(status_label_, 1);
@@ -344,6 +345,13 @@ void LcdDisplay::SetupUI() {
     lv_label_set_text(battery_label_, "");
     lv_obj_set_style_text_font(battery_label_, fonts_.icon_font, 0);
     lv_obj_set_style_text_color(battery_label_, current_theme.text, 0);
+
+    notification_label_ = lv_label_create(status_bar_);
+    lv_obj_set_flex_grow(notification_label_, 1);
+    lv_obj_set_style_text_align(notification_label_, LV_TEXT_ALIGN_CENTER, 0);
+    lv_obj_set_style_text_color(notification_label_, current_theme.text, 0);
+    lv_label_set_text(notification_label_, "");
+    lv_obj_add_flag(notification_label_, LV_OBJ_FLAG_HIDDEN);
 
     low_battery_popup_ = lv_obj_create(screen);
     lv_obj_set_scrollbar_mode(low_battery_popup_, LV_SCROLLBAR_MODE_OFF);

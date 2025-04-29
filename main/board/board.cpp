@@ -379,3 +379,10 @@ esp_err_t Board::probe_SSD1306() {
 
   return err;
 }
+
+bool Board::GetBatteryLevel(int &level, bool &charging, bool &discharging) {
+  level = 100;
+  charging = false;
+  discharging = false;
+  return true;
+}
