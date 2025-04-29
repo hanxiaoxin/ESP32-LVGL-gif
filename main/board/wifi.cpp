@@ -6,6 +6,7 @@
 #include <ssid_manager.h>
 #include <wifi_configuration_ap.h>
 #include <wifi_station.h>
+#include "font_awesome_symbols.h"
 
 static const char *TAG = "WifiBoard";
 static bool wifi_config_mode_ = false;

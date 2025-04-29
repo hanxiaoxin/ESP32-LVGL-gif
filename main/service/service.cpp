@@ -68,5 +68,5 @@ void runServices() {
   ESP_LOGI(TAG, "Starting services");
   // gif_ssd1306();
   // ws2812_init();
-  clock_ssd1306();
+  // clock_ssd1306();
 }
