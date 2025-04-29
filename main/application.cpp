@@ -33,7 +33,7 @@ void Application::Start() {
   esp_timer_create(&clock_timer_args, &clock_timer_handle_);
   esp_timer_start_periodic(clock_timer_handle_, 1000000);
 
-  Board &board = Board::GetInstance();
+  // Board &board = Board::GetInstance();
   StartNetwork();
   init_ntp();
   init_uart();

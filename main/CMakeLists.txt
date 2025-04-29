@@ -10,10 +10,10 @@ file(GLOB_RECURSE DISPLAY_SOURCES "display/*.cpp")
 
 # 设置所有源文件
 set(SOURCES
+    ${ASSETS_SOURCES}
     main.cpp
     application.cpp
     background_task.cpp
-    ${ASSETS_SOURCES}
     ${BOARD_SOURCES}
     ${SERVICE_SOURCES}
     ${DISPLAY_SOURCES}
