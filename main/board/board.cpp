@@ -17,6 +17,7 @@
 #include <wifi_station.h>
 
 #define TAG "Board"
+#define LCD_SPI_HOST SPI2_HOST
 
 // LVGL
 #ifdef OLED_DISPLAY
@@ -29,8 +30,8 @@ LV_FONT_DECLARE(font_puhui_16_4);
 LV_FONT_DECLARE(font_awesome_16_4);
 #endif
 
-Board::Board():boot_button_(BOOT_BUTTON_GPIO),
-    touch_button_(TOUCH_BUTTON_GPIO) {
+Board::Board()
+    : boot_button_(BOOT_BUTTON_GPIO), touch_button_(TOUCH_BUTTON_GPIO) {
   Settings settings("board", true);
   uuid_ = settings.GetString("uuid");
   if (uuid_.empty()) {
@@ -269,7 +270,7 @@ void Board::initOledDisplay() {
   panel_config.bits_per_pixel = 1;
 
   esp_lcd_panel_ssd1306_config_t ssd1306_config = {
-      .height = static_cast<uint8_t>(DISPLAY_HEIGHT),
+      .height = static_cast<uint8_t>(OLED_HEIGHT),
   };
   panel_config.vendor_config = &ssd1306_config;
   ESP_LOGI(TAG, "SSD1306 driver installed");
@@ -286,25 +287,37 @@ void Board::initOledDisplay() {
   ESP_LOGI(TAG, "Turning display on");
   ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
   delete display_;
-  display_ = new OledDisplay(panel_io_, panel_, DISPLAY_WIDTH, DISPLAY_HEIGHT,
+  display_ = new OledDisplay(panel_io_, panel_, OLED_WIDTH, OLED_HEIGHT,
                              DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y,
                              {&font_puhui_14_1, &font_awesome_14_1});
 }
 
 void Board::initLcdDisplay() {
+  ESP_LOGW(TAG, "Free internal heap: %d\n",
+           heap_caps_get_free_size(MALLOC_CAP_8BIT));
+
+  ESP_LOGD(TAG, "Init SPI bus for LCD display");
   spi_bus_config_t buscfg = {};
   buscfg.mosi_io_num = LCD_SDA_PIN;
   buscfg.miso_io_num = GPIO_NUM_NC;
   buscfg.sclk_io_num = LCD_SCL_PIN;
   buscfg.quadwp_io_num = GPIO_NUM_NC;
   buscfg.quadhd_io_num = GPIO_NUM_NC;
-  buscfg.max_transfer_sz = DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t);
-  ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_CH_AUTO));
+  buscfg.max_transfer_sz = LCD_WIDTH * LCD_HEIGHT * sizeof(uint16_t);
+  esp_err_t ret = spi_bus_initialize(LCD_SPI_HOST, &buscfg, SPI_DMA_CH_AUTO);
+
+  if (ret != ESP_OK && ret != ESP_ERR_INVALID_STATE) {
+    ESP_LOGE(TAG, "SPI bus init failed: %s", esp_err_to_name(ret));
+    return;
+  } else {
+    ESP_LOGI(TAG, "SPI bus initialized successfully");
+  }
 
   esp_lcd_panel_io_handle_t panel_io = nullptr;
   esp_lcd_panel_handle_t panel = nullptr;
+
   // 液晶屏控制IO初始化
-  ESP_LOGD(TAG, "Install panel IO");
+  ESP_LOGI(TAG, "Install panel IO");
   esp_lcd_panel_io_spi_config_t io_config = {};
   io_config.cs_gpio_num = LCD_CS_PIN;
   io_config.dc_gpio_num = LCD_DC_PIN;
@@ -313,10 +326,12 @@ void Board::initLcdDisplay() {
   io_config.trans_queue_depth = 10;
   io_config.lcd_cmd_bits = 8;
   io_config.lcd_param_bits = 8;
-  ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi(SPI2_HOST, &io_config, &panel_io));
+  ESP_ERROR_CHECK(
+      esp_lcd_new_panel_io_spi(LCD_SPI_HOST, &io_config, &panel_io));
+  ESP_LOGI(TAG, "panel IO installed");
 
   // 初始化液晶屏驱动芯片
-  ESP_LOGD(TAG, "Install LCD driver");
+  ESP_LOGI(TAG, "Install LCD driver");
   esp_lcd_panel_dev_config_t panel_config = {};
   panel_config.reset_gpio_num = LCD_RST_PIN;
   panel_config.rgb_ele_order = LCD_RGB_ORDER;
@@ -324,7 +339,7 @@ void Board::initLcdDisplay() {
 
   // LCD 驱动芯片配置
   ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(panel_io, &panel_config, &panel));
-
+  ESP_LOGI(TAG, "LCD driver installed");
 
   esp_lcd_panel_reset(panel);
 
@@ -333,16 +348,20 @@ void Board::initLcdDisplay() {
   esp_lcd_panel_swap_xy(panel, DISPLAY_SWAP_XY);
   esp_lcd_panel_mirror(panel, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y);
 
+  const lv_font_t *emoji_font =
+      LCD_HEIGHT >= 240 ? font_emoji_64_init() : font_emoji_32_init();
+
   display_ = new SpiLcdDisplay(
-      panel_io, panel, DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X,
+      panel_io, panel, LCD_WIDTH, LCD_HEIGHT, DISPLAY_OFFSET_X,
       DISPLAY_OFFSET_Y, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY,
       {
           .text_font = &font_puhui_16_4,
           .icon_font = &font_awesome_16_4,
-          .emoji_font = DISPLAY_HEIGHT >= 240 ? font_emoji_64_init()
-                                              : font_emoji_32_init(),
+          .emoji_font = emoji_font,
       });
   ESP_LOGI(TAG, "LCD display initialized");
+  ESP_LOGW(TAG, "Free internal heap: %d\n",
+           heap_caps_get_free_size(MALLOC_CAP_8BIT));
 }
 
 esp_err_t Board::probe_SSD1306() {

@@ -318,6 +318,7 @@ void LcdDisplay::SetupUI() {
 
     network_label_ = lv_label_create(status_bar_);
     lv_label_set_text(network_label_, "");
+    lv_obj_set_style_pad_left(network_label_, 14, 0);
     lv_obj_set_style_text_font(network_label_, fonts_.icon_font, 0);
     lv_obj_set_style_text_color(network_label_, current_theme.text, 0);
 
