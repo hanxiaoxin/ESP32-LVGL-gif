@@ -305,7 +305,9 @@ void LcdDisplay::SetupUI() {
                         LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
 
   // 设置背景图片
-  lv_img_set_src(content_, &bg_image);
+  lv_obj_t *img = lv_img_create(content_); // 设为 content_ 的子对象
+  lv_img_set_src(img, &bg);            // 设置你的压缩图片
+  lv_obj_center(img);                      // 可选：居中
 
   emotion_label_ = lv_label_create(content_);
   lv_obj_set_style_text_font(emotion_label_, &font_awesome_30_4, 0);
