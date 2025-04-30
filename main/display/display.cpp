@@ -16,7 +16,7 @@
 #define TAG "Display"
 
 static int frameCount = 0;
-static int total_frame_count = loading_image_size;
+static int total_frame_count = frames_count;
 
 Display::Display() {
   // Load theme from settings
@@ -52,9 +52,9 @@ Display::Display() {
               return;
             }
             ESP_LOGI(TAG, "bg timer, %d, %p", frameCount, display->content_);
-            lv_obj_set_style_bg_img_src(
-                display->content_, (const void *)&loading_images[frameCount],
-                0); // bg_image 是背景图的资源
+            lv_obj_set_style_bg_img_src(display->content_,
+                                        (const void *)&frames[frameCount],
+                                        0); // bg_image 是背景图的资源
             frameCount++;
 
             if (frameCount >= total_frame_count) {
