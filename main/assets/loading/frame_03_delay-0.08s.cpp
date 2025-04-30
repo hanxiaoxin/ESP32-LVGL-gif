@@ -1,3 +1,4 @@
+
 #include "lvgl.h"
 #include "stdint.h"
 static const uint8_t frame_03_delay_0_map[] = {
@@ -987,9 +988,11 @@ extern const lv_image_dsc_t frame_03_delay_0 = {
        .flags = 0 | LV_IMAGE_FLAGS_COMPRESSED,
        .w = 240,
        .h = 280,
-       .stride = 480
+       .stride = 480,
+       .reserved_2 = 0,
    },
    .data_size = sizeof(frame_03_delay_0_map),
    .data = frame_03_delay_0_map,
+   .reserved = 0,
 };
 

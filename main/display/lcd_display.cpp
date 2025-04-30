@@ -305,13 +305,13 @@ void LcdDisplay::SetupUI() {
                         LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
 
   // 设置背景图片
-  lv_obj_set_style_bg_img_src(content_, (const void *)&bg_images[0],
-                              0); // bg_image 是背景图的资源
+  lv_img_set_src(content_, &bg_image);
 
   emotion_label_ = lv_label_create(content_);
   lv_obj_set_style_text_font(emotion_label_, &font_awesome_30_4, 0);
   lv_obj_set_style_text_color(emotion_label_, current_theme.text, 0);
   lv_label_set_text(emotion_label_, FONT_AWESOME_AI_CHIP);
+  lv_obj_add_flag(emotion_label_, LV_OBJ_FLAG_HIDDEN);
 
   chat_message_label_ = lv_label_create(content_);
   lv_label_set_text(chat_message_label_, "");

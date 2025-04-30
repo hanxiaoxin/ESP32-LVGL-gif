@@ -55,6 +55,7 @@ protected:
 
     esp_timer_handle_t notification_timer_ = nullptr;
     esp_timer_handle_t update_timer_ = nullptr;
+    esp_timer_handle_t bg_timer_ = nullptr;
 
     friend class DisplayLockGuard;
     virtual bool Lock(int timeout_ms = 0) = 0;
