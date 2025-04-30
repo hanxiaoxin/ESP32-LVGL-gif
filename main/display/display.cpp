@@ -6,6 +6,7 @@
 
 #include "application.h"
 #include "assets/frames.h"
+#include "assets/logo.h"
 #include "assets/lang_config.h"
 #include "board/board.h"
 #include "display.h"
@@ -52,7 +53,7 @@ Display::Display() {
             }
 
             auto device_state = Application::GetInstance().GetDeviceState();
-            if (device_state == kDeviceStateConnecting) {
+            if (device_state != kDeviceStateFatalError) {
               // 如果处于链接状态，显示背景动画
 
               // 设置背景图片
@@ -69,7 +70,7 @@ Display::Display() {
 
               return;
             } else {
-              lv_obj_set_style_bg_img_src(display->content_, NULL, 0);
+              lv_obj_set_style_bg_img_src(display->content_, &logo, 0);
             }
           },
       .arg = this,
