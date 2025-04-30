@@ -41,6 +41,6 @@ extern const uint8_t _binary_frame_12_bin_start[], _binary_frame_12_bin_end[];
 const lv_image_dsc_t frames[] = {
     FRAME_DSC(00), FRAME_DSC(01), FRAME_DSC(02), FRAME_DSC(03), FRAME_DSC(04),
     FRAME_DSC(05), FRAME_DSC(06), FRAME_DSC(07), FRAME_DSC(08), FRAME_DSC(09),
-    FRAME_DSC(10), FRAME_DSC(11), FRAME_DSC(12),
+    // FRAME_DSC(10), FRAME_DSC(11), FRAME_DSC(12),
 };
 const int frames_count = sizeof(frames) / sizeof(lv_image_dsc_t);

@@ -7,6 +7,19 @@
 #include <freertos/task.h>
 #include "background_task.h"
 
+enum DeviceState {
+  kDeviceStateUnknown,
+  kDeviceStateStarting,
+  kDeviceStateWifiConfiguring,
+  kDeviceStateIdle,
+  kDeviceStateConnecting,
+  kDeviceStateListening,
+  kDeviceStateSpeaking,
+  kDeviceStateUpgrading,
+  kDeviceStateActivating,
+  kDeviceStateFatalError
+};
+
 class Application {
 public:
   BackgroundTask *background_task_ = nullptr;
@@ -20,6 +33,8 @@ public:
   Application &operator=(const Application &) = delete;
 
   void Start();
+  DeviceState GetDeviceState() const { return device_state_; }
+  void SetDeviceState(DeviceState state);
 
 private:
   Application();
@@ -31,6 +46,7 @@ private:
 
   EventGroupHandle_t event_group_ = nullptr;
   esp_timer_handle_t clock_timer_handle_ = nullptr;
+  volatile DeviceState device_state_ = kDeviceStateUnknown;
 };
 
 #endif // _APPLICATION_H_

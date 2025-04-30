@@ -9,6 +9,7 @@
 #include "font_awesome_symbols.h"
 #include "board/board.h"
 #include "lang_config.h"
+#include "application.h"
 
 static const char *TAG = "WifiBoard";
 static bool wifi_config_mode_ = false;
@@ -26,6 +27,7 @@ void set_wifi_power() {
 }
 
 void EnterWifiConfigMode() {
+  Application::GetInstance().SetDeviceState(DeviceState::kDeviceStateWifiConfiguring);
   auto display_ = Board::GetInstance().GetDisplay();
   auto &wifi_ap = WifiConfigurationAp::GetInstance();
   wifi_ap.SetSsidPrefix("Hanxiaoxin");
@@ -53,6 +55,8 @@ void EnterWifiConfigMode() {
 }
 
 void StartNetwork() {
+  Application::GetInstance().SetDeviceState(
+      DeviceState::kDeviceStateConnecting);
   auto display_ = Board::GetInstance().GetDisplay();
   if (DEFAULT_WIFI) {
     Settings settings("wifi", true);
@@ -94,7 +98,9 @@ void StartNetwork() {
 
   //Success
   display_->SetStatus(Lang::Strings::CONNECTED_TO);
-  display_->SetIcon(FONT_AWESOME_EMOJI_NEUTRAL); 
+  display_->SetIcon(FONT_AWESOME_EMOJI_NEUTRAL);
+  Application::GetInstance().SetDeviceState(
+      DeviceState::kDeviceStateIdle);
 }
 
 void ResetWifiConfiguration() {

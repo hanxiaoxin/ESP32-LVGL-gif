@@ -46,19 +46,30 @@ Display::Display() {
           [](void *arg) {
             LcdDisplay *display = static_cast<LcdDisplay *>(arg);
             DisplayLockGuard lock(display);
-            return;
-            // 设置背景图片
+
             if (display->content_ == nullptr) {
               return;
             }
-            ESP_LOGI(TAG, "bg timer, %d, %p", frameCount, display->content_);
-            lv_obj_set_style_bg_img_src(display->content_,
-                                        (const void *)&frames[frameCount],
-                                        0); // bg_image 是背景图的资源
-            frameCount++;
 
-            if (frameCount >= total_frame_count) {
-              frameCount = 0;
+            auto device_state = Application::GetInstance().GetDeviceState();
+            if (device_state == kDeviceStateConnecting) {
+              // 如果处于链接状态，显示背景动画
+
+              // 设置背景图片
+              // ESP_LOGI(TAG, "bg timer, %d, %p", frameCount,
+              // display->content_);
+              lv_obj_set_style_bg_img_src(display->content_,
+                                          &frames[frameCount],
+                                          0); // bg_image 是背景图的资源
+              frameCount++;
+
+              if (frameCount >= total_frame_count) {
+                frameCount = 0;
+              }
+
+              return;
+            } else {
+              lv_obj_set_style_bg_img_src(display->content_, NULL, 0);
             }
           },
       .arg = this,

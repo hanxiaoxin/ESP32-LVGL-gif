@@ -9,7 +9,6 @@
 #include <esp_lvgl_port.h>
 #include <font_awesome_symbols.h>
 #include <vector>
-#include "assets/logo.h"
 
 #define TAG "LcdDisplay"
 
@@ -304,10 +303,6 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_flex_flow(content_, LV_FLEX_FLOW_COLUMN); // 垂直布局（从上到下）
   lv_obj_set_flex_align(content_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
                         LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
-  // 设置背景图片
-  lv_obj_t *logo = lv_img_create(content_);
-  lv_img_set_src(logo, &logo_img);
-  lv_obj_center(logo);
 
   emotion_label_ = lv_label_create(content_);
   lv_obj_set_style_text_font(emotion_label_, &font_awesome_30_4, 0);
