@@ -125,6 +125,32 @@ extern const uint8_t _binary_frame_39_bin_start[];
 extern const uint8_t _binary_frame_39_bin_end[];
 extern const uint8_t _binary_frame_40_bin_start[];
 extern const uint8_t _binary_frame_40_bin_end[];
+extern const uint8_t _binary_frame_41_bin_start[];
+extern const uint8_t _binary_frame_41_bin_end[];
+extern const uint8_t _binary_frame_42_bin_start[];
+extern const uint8_t _binary_frame_42_bin_end[];
+extern const uint8_t _binary_frame_43_bin_start[];
+extern const uint8_t _binary_frame_43_bin_end[];
+extern const uint8_t _binary_frame_44_bin_start[];
+extern const uint8_t _binary_frame_44_bin_end[];
+extern const uint8_t _binary_frame_45_bin_start[];
+extern const uint8_t _binary_frame_45_bin_end[];
+extern const uint8_t _binary_frame_46_bin_start[];
+extern const uint8_t _binary_frame_46_bin_end[];
+extern const uint8_t _binary_frame_47_bin_start[];
+extern const uint8_t _binary_frame_47_bin_end[];
+extern const uint8_t _binary_frame_48_bin_start[];
+extern const uint8_t _binary_frame_48_bin_end[];
+extern const uint8_t _binary_frame_49_bin_start[];
+extern const uint8_t _binary_frame_49_bin_end[];
+extern const uint8_t _binary_frame_50_bin_start[];
+extern const uint8_t _binary_frame_50_bin_end[];
+extern const uint8_t _binary_frame_51_bin_start[];
+extern const uint8_t _binary_frame_51_bin_end[];
+extern const uint8_t _binary_frame_52_bin_start[];
+extern const uint8_t _binary_frame_52_bin_end[];
+extern const uint8_t _binary_frame_53_bin_start[];
+extern const uint8_t _binary_frame_53_bin_end[];
 
 static const lv_image_dsc_t frames[] = {
     FRAME_DSC(00),
@@ -168,6 +194,19 @@ static const lv_image_dsc_t frames[] = {
     FRAME_DSC(38),
     FRAME_DSC(39),
     FRAME_DSC(40),
+    FRAME_DSC(41),
+    FRAME_DSC(42),
+    FRAME_DSC(43),
+    FRAME_DSC(44),
+    FRAME_DSC(45),
+    FRAME_DSC(46),
+    FRAME_DSC(47),
+    FRAME_DSC(48),
+    FRAME_DSC(49),
+    FRAME_DSC(50),
+    FRAME_DSC(51),
+    FRAME_DSC(52),
+    FRAME_DSC(53),
 };
 
 static const int frames_count = sizeof(frames) / sizeof(lv_image_dsc_t);

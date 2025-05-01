@@ -73,7 +73,7 @@ Display::Display() {
       .skip_unhandled_events = true,
   };
   ESP_ERROR_CHECK(esp_timer_create(&bg_timer_args, &bg_timer_));
-  ESP_ERROR_CHECK(esp_timer_start_periodic(bg_timer_, 100000));
+  ESP_ERROR_CHECK(esp_timer_start_periodic(bg_timer_, 80000));
 
   // Update display timer
   esp_timer_create_args_t update_display_timer_args = {

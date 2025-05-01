@@ -9,6 +9,7 @@
 #include <esp_lvgl_port.h>
 #include <font_awesome_symbols.h>
 #include <vector>
+#include "config.h"
 
 #define TAG "LcdDisplay"
 
@@ -296,7 +297,7 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_width(content_, LV_HOR_RES);
   lv_obj_set_flex_grow(content_, 1);
   lv_obj_set_style_pad_all(content_, 5, 0);
-  lv_obj_set_style_bg_color(content_, lv_color_hex(0xfbf3cb), 0);
+  lv_obj_set_style_bg_color(content_, lv_color_hex(LCD_BG_COLOR), 0);
   lv_obj_set_style_border_color(content_, current_theme.border, 0);
 
   lv_obj_set_flex_flow(content_, LV_FLEX_FLOW_COLUMN); // 垂直布局（从上到下）
