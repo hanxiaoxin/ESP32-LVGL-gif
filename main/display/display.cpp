@@ -6,8 +6,8 @@
 
 #include "application.h"
 #include "assets/frames.h"
-#include "assets/logo.h"
 #include "assets/lang_config.h"
+#include "assets/logo.h"
 #include "board/board.h"
 #include "display.h"
 #include "font_awesome_symbols.h"
@@ -51,26 +51,20 @@ Display::Display() {
             if (display->content_ == nullptr) {
               return;
             }
-
             auto device_state = Application::GetInstance().GetDeviceState();
-            if (device_state != kDeviceStateFatalError) {
-              // 如果处于链接状态，显示背景动画
+            if (device_state == kDeviceStateStarting) {
+              display->setBackGround(&logo);
+              return;
+            }
 
-              // 设置背景图片
-              // ESP_LOGI(TAG, "bg timer, %d, %p", frameCount,
-              // display->content_);
-              lv_obj_set_style_bg_img_src(display->content_,
-                                          &frames[frameCount],
-                                          0); // bg_image 是背景图的资源
+            if (device_state != kDeviceStateFatalError) {
+              display->setBackGround(&frames[frameCount]);
               frameCount++;
 
               if (frameCount >= total_frame_count) {
                 frameCount = 0;
               }
-
               return;
-            } else {
-              lv_obj_set_style_bg_img_src(display->content_, &logo, 0);
             }
           },
       .arg = this,
@@ -284,4 +278,15 @@ void Display::SetTheme(const std::string &theme_name) {
   current_theme_name_ = theme_name;
   Settings settings("display", true);
   settings.SetString("theme", theme_name);
+}
+
+void Display::setBackGround(const lv_img_dsc_t *img) {
+  DisplayLockGuard lock(this);
+  lv_obj_clean(content_);
+  lv_obj_t *img_obj = lv_image_create(content_);
+  lv_image_set_src(img_obj, img);
+
+  // lv_obj_set_style_border_color(img_obj, lv_color_black(), LV_PART_MAIN);
+  // lv_obj_set_style_border_width(img_obj, 2, LV_PART_MAIN);
+  lv_obj_center(img_obj);
 }

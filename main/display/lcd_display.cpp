@@ -297,8 +297,8 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_flex_grow(content_, 1);
   lv_obj_set_style_pad_all(content_, 5, 0);
   lv_obj_set_style_bg_color(content_, current_theme.chat_background, 0);
-  lv_obj_set_style_border_color(content_, current_theme.border,
-                                0); // Border color for content
+  // lv_obj_set_style_border_color(content_, current_theme.border,
+  //                               0); // Border color for content
 
   lv_obj_set_flex_flow(content_, LV_FLEX_FLOW_COLUMN); // 垂直布局（从上到下）
   lv_obj_set_flex_align(content_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
@@ -470,7 +470,7 @@ void LcdDisplay::SetTheme(const std::string &theme_name) {
   // Update content area colors
   if (content_ != nullptr) {
     lv_obj_set_style_bg_color(content_, current_theme.chat_background, 0);
-    lv_obj_set_style_border_color(content_, current_theme.border, 0);
+    // lv_obj_set_style_border_color(content_, current_theme.border, 0);
 
     // If we have the chat message style, update all message bubbles
 #if CONFIG_USE_WECHAT_MESSAGE_STYLE

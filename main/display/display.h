@@ -26,6 +26,7 @@ public:
     virtual void SetChatMessage(const char* role, const char* content);
     virtual void SetIcon(const char* icon);
     virtual void SetTheme(const std::string& theme_name);
+    virtual void setBackGround(const lv_img_dsc_t* img);
     virtual std::string GetTheme() { return current_theme_name_; }
 
     inline int width() const { return width_; }
@@ -38,6 +39,7 @@ protected:
     esp_pm_lock_handle_t pm_lock_ = nullptr;
     lv_display_t *display_ = nullptr;
 
+    lv_obj_t *content_ = nullptr;
     lv_obj_t *emotion_label_ = nullptr;
     lv_obj_t *network_label_ = nullptr;
     lv_obj_t *status_label_ = nullptr;

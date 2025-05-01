@@ -20,23 +20,17 @@ set(SOURCES
     ${DISPLAY_SOURCES}
 )
 
-set(FILE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/files")
+set(FILE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/files/")
+set(FRAMES_DIR "${FILE_DIR}/frames")
+file(GLOB EMBEDDED_BIN_FILES "${FRAMES_DIR}/frame_*.bin")
+
 # 嵌入的文件
 set(EMBEDDED_BIN_FILES
-    "${FILE_DIR}/frame_00.bin"
-    "${FILE_DIR}/frame_01.bin"
-    "${FILE_DIR}/frame_02.bin"
-    "${FILE_DIR}/frame_03.bin"
-    "${FILE_DIR}/frame_04.bin"
-    "${FILE_DIR}/frame_05.bin"
-    "${FILE_DIR}/frame_06.bin"
-    "${FILE_DIR}/frame_07.bin"
-    "${FILE_DIR}/frame_08.bin"
-    "${FILE_DIR}/frame_09.bin"
-    "${FILE_DIR}/frame_10.bin"
-    "${FILE_DIR}/frame_11.bin"
-    "${FILE_DIR}/frame_12.bin"
+    ${EMBEDDED_BIN_FILES}
+    "${FILE_DIR}/logo.bin"
 )
+
+
 idf_component_register(
     SRCS ${SOURCES}
     INCLUDE_DIRS ${INCLUDE_DIRS}
