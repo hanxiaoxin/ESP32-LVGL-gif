@@ -18,7 +18,7 @@
 // LCD
 #define LCD_WIDTH 240
 #define LCD_HEIGHT 280
-#define LCD_BG_COLOR 0x1c73d3
+#define LCD_BG_COLOR 0x4a93c4
 
 #define LCD_BLK_PIN GPIO_NUM_7
 #define LCD_SCL_PIN GPIO_NUM_4

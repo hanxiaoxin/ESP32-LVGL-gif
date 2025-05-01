@@ -37,9 +37,9 @@ void Application::Start() {
   Board &board = Board::GetInstance();
   // StartNetwork();
   // init_ntp();
-  // init_uart();
-  // xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
-  // runServices();
+  init_uart();
+  xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
+  runServices();
 }
 
 void Application::OnClockTimer() {

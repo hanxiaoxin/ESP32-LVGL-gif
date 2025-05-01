@@ -23,8 +23,8 @@
 #define LV_ATTRIBUTE_MEM_ALIGN
 #endif
 
-#define FRAME_WIDTH 200
-#define FRAME_HEIGHT 210
+#define FRAME_WIDTH 240
+#define FRAME_HEIGHT 240
 
 #define FRAME_DSC(index) \
   { \
@@ -151,6 +151,32 @@ extern const uint8_t _binary_frame_52_bin_start[];
 extern const uint8_t _binary_frame_52_bin_end[];
 extern const uint8_t _binary_frame_53_bin_start[];
 extern const uint8_t _binary_frame_53_bin_end[];
+extern const uint8_t _binary_frame_54_bin_start[];
+extern const uint8_t _binary_frame_54_bin_end[];
+extern const uint8_t _binary_frame_55_bin_start[];
+extern const uint8_t _binary_frame_55_bin_end[];
+extern const uint8_t _binary_frame_56_bin_start[];
+extern const uint8_t _binary_frame_56_bin_end[];
+extern const uint8_t _binary_frame_57_bin_start[];
+extern const uint8_t _binary_frame_57_bin_end[];
+extern const uint8_t _binary_frame_58_bin_start[];
+extern const uint8_t _binary_frame_58_bin_end[];
+extern const uint8_t _binary_frame_59_bin_start[];
+extern const uint8_t _binary_frame_59_bin_end[];
+extern const uint8_t _binary_frame_60_bin_start[];
+extern const uint8_t _binary_frame_60_bin_end[];
+extern const uint8_t _binary_frame_61_bin_start[];
+extern const uint8_t _binary_frame_61_bin_end[];
+extern const uint8_t _binary_frame_62_bin_start[];
+extern const uint8_t _binary_frame_62_bin_end[];
+extern const uint8_t _binary_frame_63_bin_start[];
+extern const uint8_t _binary_frame_63_bin_end[];
+extern const uint8_t _binary_frame_64_bin_start[];
+extern const uint8_t _binary_frame_64_bin_end[];
+extern const uint8_t _binary_frame_65_bin_start[];
+extern const uint8_t _binary_frame_65_bin_end[];
+extern const uint8_t _binary_frame_66_bin_start[];
+extern const uint8_t _binary_frame_66_bin_end[];
 
 static const lv_image_dsc_t frames[] = {
     FRAME_DSC(00),
@@ -207,6 +233,19 @@ static const lv_image_dsc_t frames[] = {
     FRAME_DSC(51),
     FRAME_DSC(52),
     FRAME_DSC(53),
+    FRAME_DSC(54),
+    FRAME_DSC(55),
+    FRAME_DSC(56),
+    FRAME_DSC(57),
+    FRAME_DSC(58),
+    FRAME_DSC(59),
+    FRAME_DSC(60),
+    FRAME_DSC(61),
+    FRAME_DSC(62),
+    FRAME_DSC(63),
+    FRAME_DSC(64),
+    FRAME_DSC(65),
+    FRAME_DSC(66),
 };
 
 static const int frames_count = sizeof(frames) / sizeof(lv_image_dsc_t);
