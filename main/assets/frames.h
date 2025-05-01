@@ -34,7 +34,8 @@
           .flags = 0 | LV_IMAGE_FLAGS_COMPRESSED, \
           .w = FRAME_WIDTH, \
           .h = FRAME_HEIGHT, \
-          .reserved_2 = 0, \
+          .stride = FRAME_WIDTH * 2, \
+          .reserved_2 = 1, \
       }, \
       .data_size = (size_t)(_binary_frame_##index##_bin_end - _binary_frame_##index##_bin_start), \
       .data = _binary_frame_##index##_bin_start + 12, \

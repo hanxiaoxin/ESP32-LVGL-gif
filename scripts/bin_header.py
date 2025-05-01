@@ -69,6 +69,7 @@ with open(output_h, "w") as f:
           .flags = 0 | LV_IMAGE_FLAGS_COMPRESSED, \\
           .w = FRAME_WIDTH, \\
           .h = FRAME_HEIGHT, \\
+          .stride = FRAME_WIDTH * 2, \\
           .reserved_2 = 1, \\
       }}, \\
       .data_size = (size_t)(_binary_{frame_prefix}_##index##_bin_end - _binary_{frame_prefix}_##index##_bin_start), \\

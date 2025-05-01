@@ -14,6 +14,7 @@ extern const lv_image_dsc_t logo = {
             .flags = 0 | LV_IMAGE_FLAGS_COMPRESSED,
             .w = LOGO_WIDTH,
             .h = LOGO_HEIGHT,
+            .stride = LOGO_WIDTH * 2,
             .reserved_2 = 0,
         },
     .data_size = (size_t)(_binary_logo_bin_end - _binary_logo_bin_start),
