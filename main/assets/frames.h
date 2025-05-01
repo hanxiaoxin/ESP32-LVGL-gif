@@ -23,8 +23,8 @@
 #define LV_ATTRIBUTE_MEM_ALIGN
 #endif
 
-#define FRAME_WIDTH 128
-#define FRAME_HEIGHT 128
+#define FRAME_WIDTH 200
+#define FRAME_HEIGHT 210
 
 #define FRAME_DSC(index) \
   { \
@@ -69,6 +69,62 @@ extern const uint8_t _binary_frame_11_bin_start[];
 extern const uint8_t _binary_frame_11_bin_end[];
 extern const uint8_t _binary_frame_12_bin_start[];
 extern const uint8_t _binary_frame_12_bin_end[];
+extern const uint8_t _binary_frame_13_bin_start[];
+extern const uint8_t _binary_frame_13_bin_end[];
+extern const uint8_t _binary_frame_14_bin_start[];
+extern const uint8_t _binary_frame_14_bin_end[];
+extern const uint8_t _binary_frame_15_bin_start[];
+extern const uint8_t _binary_frame_15_bin_end[];
+extern const uint8_t _binary_frame_16_bin_start[];
+extern const uint8_t _binary_frame_16_bin_end[];
+extern const uint8_t _binary_frame_17_bin_start[];
+extern const uint8_t _binary_frame_17_bin_end[];
+extern const uint8_t _binary_frame_18_bin_start[];
+extern const uint8_t _binary_frame_18_bin_end[];
+extern const uint8_t _binary_frame_19_bin_start[];
+extern const uint8_t _binary_frame_19_bin_end[];
+extern const uint8_t _binary_frame_20_bin_start[];
+extern const uint8_t _binary_frame_20_bin_end[];
+extern const uint8_t _binary_frame_21_bin_start[];
+extern const uint8_t _binary_frame_21_bin_end[];
+extern const uint8_t _binary_frame_22_bin_start[];
+extern const uint8_t _binary_frame_22_bin_end[];
+extern const uint8_t _binary_frame_23_bin_start[];
+extern const uint8_t _binary_frame_23_bin_end[];
+extern const uint8_t _binary_frame_24_bin_start[];
+extern const uint8_t _binary_frame_24_bin_end[];
+extern const uint8_t _binary_frame_25_bin_start[];
+extern const uint8_t _binary_frame_25_bin_end[];
+extern const uint8_t _binary_frame_26_bin_start[];
+extern const uint8_t _binary_frame_26_bin_end[];
+extern const uint8_t _binary_frame_27_bin_start[];
+extern const uint8_t _binary_frame_27_bin_end[];
+extern const uint8_t _binary_frame_28_bin_start[];
+extern const uint8_t _binary_frame_28_bin_end[];
+extern const uint8_t _binary_frame_29_bin_start[];
+extern const uint8_t _binary_frame_29_bin_end[];
+extern const uint8_t _binary_frame_30_bin_start[];
+extern const uint8_t _binary_frame_30_bin_end[];
+extern const uint8_t _binary_frame_31_bin_start[];
+extern const uint8_t _binary_frame_31_bin_end[];
+extern const uint8_t _binary_frame_32_bin_start[];
+extern const uint8_t _binary_frame_32_bin_end[];
+extern const uint8_t _binary_frame_33_bin_start[];
+extern const uint8_t _binary_frame_33_bin_end[];
+extern const uint8_t _binary_frame_34_bin_start[];
+extern const uint8_t _binary_frame_34_bin_end[];
+extern const uint8_t _binary_frame_35_bin_start[];
+extern const uint8_t _binary_frame_35_bin_end[];
+extern const uint8_t _binary_frame_36_bin_start[];
+extern const uint8_t _binary_frame_36_bin_end[];
+extern const uint8_t _binary_frame_37_bin_start[];
+extern const uint8_t _binary_frame_37_bin_end[];
+extern const uint8_t _binary_frame_38_bin_start[];
+extern const uint8_t _binary_frame_38_bin_end[];
+extern const uint8_t _binary_frame_39_bin_start[];
+extern const uint8_t _binary_frame_39_bin_end[];
+extern const uint8_t _binary_frame_40_bin_start[];
+extern const uint8_t _binary_frame_40_bin_end[];
 
 static const lv_image_dsc_t frames[] = {
     FRAME_DSC(00),
@@ -84,6 +140,34 @@ static const lv_image_dsc_t frames[] = {
     FRAME_DSC(10),
     FRAME_DSC(11),
     FRAME_DSC(12),
+    FRAME_DSC(13),
+    FRAME_DSC(14),
+    FRAME_DSC(15),
+    FRAME_DSC(16),
+    FRAME_DSC(17),
+    FRAME_DSC(18),
+    FRAME_DSC(19),
+    FRAME_DSC(20),
+    FRAME_DSC(21),
+    FRAME_DSC(22),
+    FRAME_DSC(23),
+    FRAME_DSC(24),
+    FRAME_DSC(25),
+    FRAME_DSC(26),
+    FRAME_DSC(27),
+    FRAME_DSC(28),
+    FRAME_DSC(29),
+    FRAME_DSC(30),
+    FRAME_DSC(31),
+    FRAME_DSC(32),
+    FRAME_DSC(33),
+    FRAME_DSC(34),
+    FRAME_DSC(35),
+    FRAME_DSC(36),
+    FRAME_DSC(37),
+    FRAME_DSC(38),
+    FRAME_DSC(39),
+    FRAME_DSC(40),
 };
 
 static const int frames_count = sizeof(frames) / sizeof(lv_image_dsc_t);

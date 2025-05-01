@@ -80,6 +80,7 @@ Display::Display() {
       .callback =
           [](void *arg) {
             Display *display = static_cast<Display *>(arg);
+            DisplayLockGuard lock(display);
             display->Update();
           },
       .arg = this,

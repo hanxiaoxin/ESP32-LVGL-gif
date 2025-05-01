@@ -21,8 +21,8 @@ bin_dir = bin_full_path
 output_h = header_full_path
 macro = "LVGL_FRAMES_H"  # 头文件保护宏名
 frame_prefix = "frame"   # 可修改为其他前缀
-frame_width = 128
-frame_height = 128
+frame_width = 200
+frame_height = 210
 
 # ==== 收集文件 ====
 bin_files = sorted(f for f in os.listdir(bin_dir) if f.endswith(".bin"))
