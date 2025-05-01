@@ -365,7 +365,7 @@
  *Used by image decoders such as `lv_lodepng` to keep the decoded image in the memory.
  *If size is not set to 0, the decoder will fail to decode when the cache is full.
  *If size is 0, the cache function is not enabled and the decoded mem will be released immediately after use.*/
-#define LV_CACHE_DEF_SIZE       0
+#define LV_CACHE_DEF_SIZE       8192 * 20
 
 /*Default number of image header cache entries. The cache is used to store the headers of images
  *The main logic is like `LV_CACHE_DEF_SIZE` but for image headers.*/
@@ -657,16 +657,16 @@
 
 #define LV_USE_SPINBOX    0
 
-#define LV_USE_SPINNER    1
+#define LV_USE_SPINNER    0
 
 #define LV_USE_SWITCH     0
 
-#define LV_USE_TEXTAREA   1   /*Requires: lv_label*/
+#define LV_USE_TEXTAREA   0   /*Requires: lv_label*/
 #if LV_USE_TEXTAREA != 0
     #define LV_TEXTAREA_DEF_PWD_SHOW_TIME 1500    /*ms*/
 #endif
 
-#define LV_USE_TABLE      1
+#define LV_USE_TABLE      0
 
 #define LV_USE_TABVIEW    0
 
@@ -863,14 +863,14 @@
 #define LV_USE_SNAPSHOT 0
 
 /*1: Enable system monitor component*/
-#define LV_USE_SYSMON   0
+#define LV_USE_SYSMON   1
 #if LV_USE_SYSMON
     /*Get the idle percentage. E.g. uint32_t my_get_idle(void);*/
     #define LV_SYSMON_GET_IDLE lv_timer_get_idle
 
     /*1: Show CPU usage and FPS count
      * Requires `LV_USE_SYSMON = 1`*/
-    #define LV_USE_PERF_MONITOR 0
+    #define LV_USE_PERF_MONITOR 1
     #if LV_USE_PERF_MONITOR
         #define LV_USE_PERF_MONITOR_POS LV_ALIGN_BOTTOM_RIGHT
 
