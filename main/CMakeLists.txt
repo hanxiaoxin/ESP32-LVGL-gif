@@ -11,7 +11,7 @@ file(GLOB_RECURSE DISPLAY_SOURCES "display/*.cpp")
 # 设置所有源文件
 set(SOURCES
     ${ASSETS_SOURCES}
-    utils.h
+    utils.cpp
     main.cpp
     application.cpp
     background_task.cpp

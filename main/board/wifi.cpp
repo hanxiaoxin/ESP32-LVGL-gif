@@ -98,9 +98,8 @@ void StartNetwork() {
 
   //Success
   display_->SetStatus(Lang::Strings::CONNECTED_TO);
-  display_->SetIcon(FONT_AWESOME_EMOJI_NEUTRAL);
   Application::GetInstance().SetDeviceState(
-      DeviceState::kDeviceStateIdle);
+      DeviceState::kDeviceStateReady);
 }
 
 void ResetWifiConfiguration() {

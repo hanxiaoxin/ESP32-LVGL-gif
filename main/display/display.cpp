@@ -7,12 +7,12 @@
 #include "application.h"
 #include "assets/frames.h"
 #include "assets/lang_config.h"
-#include "assets/logo.h"
 #include "board/board.h"
 #include "display.h"
 #include "font_awesome_symbols.h"
 #include "lcd_display.h"
 #include "settings.h"
+#include "utils.h"
 
 #define TAG "Display"
 
@@ -52,12 +52,7 @@ Display::Display() {
               return;
             }
             auto device_state = Application::GetInstance().GetDeviceState();
-            if (device_state == kDeviceStateStarting) {
-              display->setBackGround(&logo);
-              return;
-            }
-
-            if (device_state != kDeviceStateFatalError) {
+            if (device_state != kDeviceStateReady) {
               display->setBackGround(&frames[frameCount]);
               frameCount++;
 
@@ -284,10 +279,16 @@ void Display::SetTheme(const std::string &theme_name) {
 void Display::setBackGround(const lv_img_dsc_t *img) {
   DisplayLockGuard lock(this);
   lv_obj_clean(content_);
-  lv_obj_t *img_obj = lv_image_create(content_);
-  lv_image_set_src(img_obj, img);
+  lv_obj_del(bg_img);
+  lv_image_cache_drop(NULL);
+
+  // print_heap();
+  bg_img = lv_image_create(content_);
+  lv_image_set_src(bg_img, img);
+  lv_obj_center(bg_img);
+
 
   // lv_obj_set_style_border_color(img_obj, lv_color_black(), LV_PART_MAIN);
   // lv_obj_set_style_border_width(img_obj, 2, LV_PART_MAIN);
-  lv_obj_center(img_obj);
+  // lv_obj_set_style_bg_img_src(content_, img, 0);
 }

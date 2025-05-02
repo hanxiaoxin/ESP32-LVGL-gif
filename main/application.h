@@ -13,11 +13,8 @@ enum DeviceState {
   kDeviceStateWifiConfiguring,
   kDeviceStateIdle,
   kDeviceStateConnecting,
-  kDeviceStateListening,
-  kDeviceStateSpeaking,
-  kDeviceStateUpgrading,
-  kDeviceStateActivating,
-  kDeviceStateFatalError
+  kDeviceStateFatalError,
+  kDeviceStateReady
 };
 
 class Application {

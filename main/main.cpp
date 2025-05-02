@@ -1,12 +1,14 @@
+#include "application.h"
 #include "esp_err.h"
 #include "esp_event.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
-#include "application.h"
+#include "utils.h"
 
 #define TAG "Main"
 
 extern "C" void app_main(void) {
+  malloc_heap();
   // Initialize NVS flash for WiFi configuration
   esp_err_t ret = nvs_flash_init();
   if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||

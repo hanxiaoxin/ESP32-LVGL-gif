@@ -10,6 +10,7 @@
 #include <esp_log.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
+#include "utils.h"
 
 #define TAG "Application"
 
@@ -37,9 +38,9 @@ void Application::Start() {
   Board &board = Board::GetInstance();
   // StartNetwork();
   // init_ntp();
-  init_uart();
-  xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
-  runServices();
+  // init_uart();
+  // xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
+  // runServices();
 }
 
 void Application::OnClockTimer() {
@@ -48,11 +49,7 @@ void Application::OnClockTimer() {
   // Print the debug info every 10 seconds
   if (clock_ticks_ % 10 == 0) {
     // SystemInfo::PrintRealTimeStats(pdMS_TO_TICKS(1000));
-
-    int free_sram = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
-    int min_free_sram = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
-    ESP_LOGI(TAG, "Free internal: %u minimal internal: %u", free_sram,
-             min_free_sram);
+    print_heap();
   }
 }
 
@@ -75,12 +72,6 @@ void Application::SetDeviceState(DeviceState state) {
       break;
     case kDeviceStateConnecting:
       display->SetStatus(Lang::Strings::CONNECTING);
-      break;
-    case kDeviceStateListening:
-      display->SetStatus(Lang::Strings::LISTENING);
-      break;
-    case kDeviceStateSpeaking:
-      display->SetStatus(Lang::Strings::SPEAKING);
       break;
     default:
       // Do nothing
