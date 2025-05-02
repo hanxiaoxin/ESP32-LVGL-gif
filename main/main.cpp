@@ -10,8 +10,6 @@
 extern "C" void app_main(void) {
   setenv("TZ", "CST-8", 1);
   tzset();
-  
-  malloc_heap();
   // Initialize NVS flash for WiFi configuration
   esp_err_t ret = nvs_flash_init();
   if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||

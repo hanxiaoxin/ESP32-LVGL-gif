@@ -40,7 +40,7 @@ void Application::Start() {
   init_ntp();
   // init_uart();
   xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
-  // runServices();
+  runServices();
 }
 
 void Application::OnClockTimer() {

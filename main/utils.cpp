@@ -36,6 +36,9 @@ void print_heap(){
   //          heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
   ESP_LOGI(TAG, "Free internal: %u minimal internal: %u", free_sram,
            min_free_sram);
+
+  size_t free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
+  ESP_LOGI("MEM", "External PSRAM: %d bytes free", free_psram);
 }
 
 void malloc_heap() {

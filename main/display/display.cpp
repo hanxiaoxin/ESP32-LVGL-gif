@@ -305,7 +305,6 @@ void Display::setBackGround(const lv_img_dsc_t *img) {
   lv_obj_clean(content_);
   lv_image_cache_drop(NULL);
 
-  free_heap();
   bg_img = lv_image_create(content_);
   lv_image_set_src(bg_img, img);
   lv_obj_center(bg_img);
