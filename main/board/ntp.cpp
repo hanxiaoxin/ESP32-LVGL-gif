@@ -2,10 +2,13 @@
 #include <sys/time.h>
 #include <time.h>
 
+#include "application.h"
+#include "board/board.h"
 #include "esp_log.h"
 #include "esp_netif.h"
 #include "esp_sntp.h"
 #include "esp_wifi.h"
+#include "lang_config.h"
 #include "nvs_flash.h"
 
 static const char *TAG = "NTP";
@@ -53,4 +56,10 @@ void init_ntp(){
   char strftime_buf[64];
   strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
   ESP_LOGI(TAG, "The current date/time is: %s", strftime_buf);
+
+  auto display_ = Board::GetInstance().GetDisplay();
+
+  // Success
+  display_->SetStatus(Lang::Strings::CONNECTED_TO);
+  Application::GetInstance().SetDeviceState(DeviceState::kDeviceStateReady);
 }

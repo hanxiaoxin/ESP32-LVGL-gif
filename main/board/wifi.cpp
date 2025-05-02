@@ -95,11 +95,6 @@ void StartNetwork() {
     EnterWifiConfigMode();
     return;
   }
-
-  //Success
-  display_->SetStatus(Lang::Strings::CONNECTED_TO);
-  Application::GetInstance().SetDeviceState(
-      DeviceState::kDeviceStateReady);
 }
 
 void ResetWifiConfiguration() {

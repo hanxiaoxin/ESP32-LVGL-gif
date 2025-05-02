@@ -2,7 +2,6 @@
 #include "assets/frames.h"
 #include "assets/lang_config.h"
 #include "config.h"
-#include "logo.h"
 #include "settings.h"
 #include "utils.h"
 #include <algorithm>
@@ -305,12 +304,6 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_flex_flow(content_, LV_FLEX_FLOW_COLUMN); // 垂直布局（从上到下）
   lv_obj_set_flex_align(content_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
                         LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
-
-  free_heap();
-  /* LOGO */
-  bg_img = lv_image_create(content_);
-  lv_image_set_src(bg_img, &logo);
-  lv_obj_center(bg_img);
 
   emotion_label_ = lv_label_create(content_);
   lv_obj_set_style_text_font(emotion_label_, &font_awesome_30_4, 0);
