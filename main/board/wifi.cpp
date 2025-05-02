@@ -57,7 +57,6 @@ void EnterWifiConfigMode() {
 void StartNetwork() {
   Application::GetInstance().SetDeviceState(
       DeviceState::kDeviceStateConnecting);
-  auto display_ = Board::GetInstance().GetDisplay();
   if (DEFAULT_WIFI) {
     Settings settings("wifi", true);
     settings.SetString("ssid", "iKuai2G-cc7b");

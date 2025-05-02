@@ -3,17 +3,20 @@
 #include <esp_err.h>
 #include <esp_log.h>
 #include <string>
+#include <sys/time.h>
+#include <time.h>
 
 #include "application.h"
 #include "assets/frames.h"
 #include "assets/lang_config.h"
 #include "board/board.h"
+#include "board/ntp.h"
 #include "display.h"
 #include "font_awesome_symbols.h"
 #include "lcd_display.h"
+#include "logo.h"
 #include "settings.h"
 #include "utils.h"
-#include "logo.h"
 
 #define TAG "Display"
 
@@ -106,6 +109,10 @@ Display::~Display() {
   if (update_timer_ != nullptr) {
     esp_timer_stop(update_timer_);
     esp_timer_delete(update_timer_);
+  }
+  if (bg_timer_ != nullptr) {
+    esp_timer_stop(bg_timer_);
+    esp_timer_delete(bg_timer_);
   }
 
   if (network_label_ != nullptr) {
@@ -205,6 +212,7 @@ void Display::Update() {
     }
   }
 
+  SetClock(get_current_time());
   esp_pm_lock_release(pm_lock_);
 }
 
@@ -270,6 +278,14 @@ void Display::SetChatMessage(const char *role, const char *content) {
     return;
   }
   lv_label_set_text(chat_message_label_, content);
+}
+
+void Display::SetClock(const char *content) {
+  DisplayLockGuard lock(this);
+  if (clock_label_ == nullptr) {
+    return;
+  }
+  lv_label_set_text(clock_label_, content);
 }
 
 void Display::SetTheme(const std::string &theme_name) {

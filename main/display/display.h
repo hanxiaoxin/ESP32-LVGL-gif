@@ -24,6 +24,7 @@ public:
     virtual void ShowNotification(const std::string &notification, int duration_ms = 3000);
     virtual void SetEmotion(const char* emotion);
     virtual void SetChatMessage(const char* role, const char* content);
+    virtual void SetClock(const char *content);
     virtual void SetIcon(const char* icon);
     virtual void SetTheme(const std::string& theme_name);
     virtual void setBackGround(const lv_img_dsc_t* img);
@@ -49,6 +50,8 @@ protected:
     lv_obj_t* chat_message_label_ = nullptr;
     lv_obj_t* low_battery_popup_ = nullptr;
     lv_obj_t* low_battery_label_ = nullptr;
+    lv_obj_t *clock_bar_ = nullptr;
+    lv_obj_t *clock_label_ = nullptr;
 
     lv_obj_t *bg_img = nullptr;
 

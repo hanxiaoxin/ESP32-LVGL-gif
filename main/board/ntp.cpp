@@ -39,8 +39,6 @@ void obtain_time(void) {
     vTaskDelay(pdMS_TO_TICKS(2000));
     time(&now);
     localtime_r(&now, &timeinfo);
-    setenv("TZ", "CST-8", 1);
-    tzset();
   }
 }
 
@@ -62,4 +60,30 @@ void init_ntp(){
   // Success
   display_->SetStatus(Lang::Strings::CONNECTED_TO);
   Application::GetInstance().SetDeviceState(DeviceState::kDeviceStateReady);
+}
+
+// 获取当前时间
+const char *get_current_time() {
+  static char strftime_buf[32];
+  time_t now;
+  struct tm timedata;
+  
+  time(&now);
+  localtime_r(&now, &timedata);
+
+  strftime(strftime_buf, sizeof(strftime_buf), "%H:%M:%S", &timedata);
+  ESP_LOGI(TAG, "current time: %s", strftime_buf);
+  return strftime_buf;
+}
+
+// 获取当前日期
+const char *get_current_date() {
+  static char strftime_buf[32];
+  time_t now;
+  struct tm timedata;
+  time(&now);
+  localtime_r(&now, &timedata);
+
+  strftime(strftime_buf, sizeof(strftime_buf), "%Y-%m-%d", &timedata);
+  return strftime_buf;
 }

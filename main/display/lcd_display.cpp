@@ -290,6 +290,32 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_style_radius(status_bar_, 0, 0);
   lv_obj_set_style_bg_color(status_bar_, current_theme.background, 0);
   lv_obj_set_style_text_color(status_bar_, current_theme.text, 0);
+  /* Status bar */
+  lv_obj_set_flex_flow(status_bar_, LV_FLEX_FLOW_ROW);
+  lv_obj_set_style_pad_all(status_bar_, 0, 0);
+  lv_obj_set_style_border_width(status_bar_, 0, 0);
+  lv_obj_set_style_pad_column(status_bar_, 0, 0);
+  lv_obj_set_style_pad_left(status_bar_, 16, 0);
+  lv_obj_set_style_pad_right(status_bar_, 16, 0);
+
+  /* clock_label */
+  clock_bar_ = lv_obj_create(container_);
+  lv_obj_set_pos(clock_bar_, 0, 20);
+  lv_obj_set_width(clock_bar_,LV_HOR_RES);
+  lv_obj_set_height(clock_bar_, LV_VER_RES * 0.1);
+
+  lv_obj_set_flex_align(clock_bar_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
+                        LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
+
+  lv_obj_set_style_radius(clock_bar_, 0, 0);
+  lv_obj_set_style_bg_color(clock_bar_, current_theme.background, 0);
+  lv_obj_set_style_text_color(clock_bar_, current_theme.text, 0);
+  lv_obj_set_flex_flow(clock_bar_, LV_FLEX_FLOW_ROW);
+  lv_obj_set_style_border_width(clock_bar_, 0, 0);
+
+  clock_label_ = lv_label_create(clock_bar_);
+  lv_label_set_text(clock_label_, "--:--:--");
+  lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_CENTER, 0);
 
   /* Content */
   content_ = lv_obj_create(container_);
@@ -320,14 +346,6 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_style_text_align(chat_message_label_, LV_TEXT_ALIGN_CENTER,
                               0); // 设置文本居中对齐
   lv_obj_set_style_text_color(chat_message_label_, current_theme.text, 0);
-
-  /* Status bar */
-  lv_obj_set_flex_flow(status_bar_, LV_FLEX_FLOW_ROW);
-  lv_obj_set_style_pad_all(status_bar_, 0, 0);
-  lv_obj_set_style_border_width(status_bar_, 0, 0);
-  lv_obj_set_style_pad_column(status_bar_, 0, 0);
-  lv_obj_set_style_pad_left(status_bar_, 16, 0);
-  lv_obj_set_style_pad_right(status_bar_, 16, 0);
 
   network_label_ = lv_label_create(status_bar_);
   lv_label_set_text(network_label_, "");
