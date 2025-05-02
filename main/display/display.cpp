@@ -286,7 +286,13 @@ void Display::SetClock(const char *content) {
     return;
   }
   lv_label_set_text(clock_label_, content);
+
+  if (status_label_ == nullptr) {
+    return;
+  }
+  lv_label_set_text(status_label_, get_current_date());
 }
+
 
 void Display::SetTheme(const std::string &theme_name) {
   current_theme_name_ = theme_name;

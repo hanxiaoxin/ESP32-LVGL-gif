@@ -60,6 +60,9 @@ void init_ntp(){
   // Success
   display_->SetStatus(Lang::Strings::CONNECTED_TO);
   Application::GetInstance().SetDeviceState(DeviceState::kDeviceStateReady);
+
+
+
 }
 
 // 获取当前时间
@@ -72,7 +75,7 @@ const char *get_current_time() {
   localtime_r(&now, &timedata);
 
   strftime(strftime_buf, sizeof(strftime_buf), "%H:%M:%S", &timedata);
-  ESP_LOGI(TAG, "current time: %s", strftime_buf);
+  // ESP_LOGI(TAG, "current time: %s", strftime_buf);
   return strftime_buf;
 }
 

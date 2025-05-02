@@ -304,6 +304,7 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_width(clock_bar_,LV_HOR_RES);
   lv_obj_set_height(clock_bar_, LV_VER_RES * 0.1);
 
+  lv_obj_set_scrollbar_mode(clock_bar_, LV_SCROLLBAR_MODE_OFF);
   lv_obj_set_flex_align(clock_bar_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
                         LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
 
