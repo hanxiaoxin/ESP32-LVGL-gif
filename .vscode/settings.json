@@ -6,7 +6,7 @@
         "board/esp32s3-builtin.cfg"
     ],
     "idf.flashBaudRate": "921600",
-    "idf.portWin": "COM35",
+    "idf.portWin": "COM37",
     "idf.toolsPathWin": "C:\\Users\\hanxiaoxin\\.espressif",
     "idf.customExtraVars": {
         "IDF_TARGET": "esp32s3"

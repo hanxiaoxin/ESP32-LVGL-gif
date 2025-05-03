@@ -11,3 +11,4 @@ dependencies:
   espressif/led_strip: ^3.0.1
   lvgl/lvgl: '*'
   espressif/esp_lvgl_port: '*'
+  espressif/esp_lcd_ili9341: "==1.2.0"

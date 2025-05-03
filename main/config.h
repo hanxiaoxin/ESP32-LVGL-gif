@@ -15,11 +15,28 @@
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
 
+
+// DISPLAY
+#define OLED_DISPLAY false
+#define LCD_DISPLAY true
+#define DISPLAY_MIRROR_X false
+#define DISPLAY_MIRROR_Y false
+#define DISPLAY_SWAP_XY true
+#define DISPLAY_INVERT_COLOR false
+#define DISPLAY_OFFSET_X 0
+#define DISPLAY_OFFSET_Y 0
+
 // LCD
-#define LCD_WIDTH 240
-#define LCD_HEIGHT 280
+#define LCD_SPI_MODE 0
+#define LCD_WIDTH 320
+#define LCD_HEIGHT 240
 #define LCD_BG_COLOR 0xFFFFFF
 
+// #define LCD_TYPE_ST7789_SERIAL
+#define LCD_TYPE_ILI9341_SERIAL
+
+#ifdef LCD_TYPE_ILI9341_SERIAL
+#define LCD_RGB_ORDER LCD_RGB_ELEMENT_ORDER_BGR
 #define LCD_BLK_PIN GPIO_NUM_5
 #define LCD_SCL_PIN GPIO_NUM_6
 #define LCD_SDA_PIN GPIO_NUM_4
@@ -27,22 +44,22 @@
 
 #define LCD_DC_PIN GPIO_NUM_1
 #define LCD_CS_PIN GPIO_NUM_2
+#endif
 
-#define LCD_SPI_MODE 0
+#ifdef LCD_TYPE_ST7789_SERIAL
 #define LCD_RGB_ORDER LCD_RGB_ELEMENT_ORDER_RGB
+#define LCD_BLK_PIN GPIO_NUM_5
+#define LCD_SCL_PIN GPIO_NUM_6
+#define LCD_SDA_PIN GPIO_NUM_4
+#define LCD_RST_PIN GPIO_NUM_3
+
+#define LCD_DC_PIN GPIO_NUM_1
+#define LCD_CS_PIN GPIO_NUM_2
+#endif
+
 
 // UART
 #define UART_TX GPIO_NUM_15
 #define UART_RX GPIO_NUM_16
-
-// DISPLAY
-#define OLED_DISPLAY false
-#define LCD_DISPLAY true
-#define DISPLAY_MIRROR_X false
-#define DISPLAY_MIRROR_Y false
-#define DISPLAY_SWAP_XY false
-#define DISPLAY_INVERT_COLOR true
-#define DISPLAY_OFFSET_X 0
-#define DISPLAY_OFFSET_Y 25
 
 #endif // CONFIG_H

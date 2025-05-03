@@ -30,6 +30,10 @@ LV_FONT_DECLARE(font_puhui_16_4);
 LV_FONT_DECLARE(font_awesome_16_4);
 #endif
 
+#if defined(LCD_TYPE_ILI9341_SERIAL)
+#include "esp_lcd_ili9341.h"
+#endif
+
 Board::Board()
     : boot_button_(BOOT_BUTTON_GPIO), touch_button_(TOUCH_BUTTON_GPIO) {
   Settings settings("board", true);
@@ -282,7 +286,7 @@ void Board::initOledDisplay() {
     ESP_LOGE(TAG, "Failed to initialize display");
     return;
   }
-
+  
   // Set the display to on
   ESP_LOGI(TAG, "Turning display on");
   ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
@@ -338,8 +342,16 @@ void Board::initLcdDisplay() {
   panel_config.bits_per_pixel = 16;
 
   // LCD 驱动芯片配置
+#if defined(LCD_TYPE_ILI9341_SERIAL)
+  ESP_ERROR_CHECK(esp_lcd_new_panel_ili9341(panel_io, &panel_config, &panel));
+  ESP_LOGI(TAG, "LCD driver ILI9341 installed");
+#elif defined(LCD_TYPE_GC9A01_SERIAL)
   ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(panel_io, &panel_config, &panel));
-  ESP_LOGI(TAG, "LCD driver installed");
+  ESP_LOGI(TAG, "LCD driver GC9A01 installed");
+#else
+  ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(panel_io, &panel_config, &panel));
+  ESP_LOGI(TAG, "LCD driver ST7789 installed");
+#endif
 
   esp_lcd_panel_reset(panel);
 
