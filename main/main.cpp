@@ -8,6 +8,7 @@
 #define TAG "Main"
 
 extern "C" void app_main(void) {
+  malloc_heap();
   setenv("TZ", "CST-8", 1);
   tzset();
   // Initialize NVS flash for WiFi configuration

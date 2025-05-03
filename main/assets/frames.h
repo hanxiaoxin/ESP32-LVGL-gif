@@ -43,365 +43,278 @@
   }
 
 // Extern binary symbols
-extern const uint8_t _binary_frame_000_bin_start[];
-extern const uint8_t _binary_frame_000_bin_end[];
-extern const uint8_t _binary_frame_001_bin_start[];
-extern const uint8_t _binary_frame_001_bin_end[];
-extern const uint8_t _binary_frame_002_bin_start[];
-extern const uint8_t _binary_frame_002_bin_end[];
-extern const uint8_t _binary_frame_003_bin_start[];
-extern const uint8_t _binary_frame_003_bin_end[];
-extern const uint8_t _binary_frame_004_bin_start[];
-extern const uint8_t _binary_frame_004_bin_end[];
-extern const uint8_t _binary_frame_005_bin_start[];
-extern const uint8_t _binary_frame_005_bin_end[];
-extern const uint8_t _binary_frame_006_bin_start[];
-extern const uint8_t _binary_frame_006_bin_end[];
-extern const uint8_t _binary_frame_007_bin_start[];
-extern const uint8_t _binary_frame_007_bin_end[];
-extern const uint8_t _binary_frame_008_bin_start[];
-extern const uint8_t _binary_frame_008_bin_end[];
-extern const uint8_t _binary_frame_009_bin_start[];
-extern const uint8_t _binary_frame_009_bin_end[];
-extern const uint8_t _binary_frame_010_bin_start[];
-extern const uint8_t _binary_frame_010_bin_end[];
-extern const uint8_t _binary_frame_011_bin_start[];
-extern const uint8_t _binary_frame_011_bin_end[];
-extern const uint8_t _binary_frame_012_bin_start[];
-extern const uint8_t _binary_frame_012_bin_end[];
-extern const uint8_t _binary_frame_013_bin_start[];
-extern const uint8_t _binary_frame_013_bin_end[];
-extern const uint8_t _binary_frame_014_bin_start[];
-extern const uint8_t _binary_frame_014_bin_end[];
-extern const uint8_t _binary_frame_015_bin_start[];
-extern const uint8_t _binary_frame_015_bin_end[];
-extern const uint8_t _binary_frame_016_bin_start[];
-extern const uint8_t _binary_frame_016_bin_end[];
-extern const uint8_t _binary_frame_017_bin_start[];
-extern const uint8_t _binary_frame_017_bin_end[];
-extern const uint8_t _binary_frame_018_bin_start[];
-extern const uint8_t _binary_frame_018_bin_end[];
-extern const uint8_t _binary_frame_019_bin_start[];
-extern const uint8_t _binary_frame_019_bin_end[];
-extern const uint8_t _binary_frame_020_bin_start[];
-extern const uint8_t _binary_frame_020_bin_end[];
-extern const uint8_t _binary_frame_021_bin_start[];
-extern const uint8_t _binary_frame_021_bin_end[];
-extern const uint8_t _binary_frame_022_bin_start[];
-extern const uint8_t _binary_frame_022_bin_end[];
-extern const uint8_t _binary_frame_023_bin_start[];
-extern const uint8_t _binary_frame_023_bin_end[];
-extern const uint8_t _binary_frame_024_bin_start[];
-extern const uint8_t _binary_frame_024_bin_end[];
-extern const uint8_t _binary_frame_025_bin_start[];
-extern const uint8_t _binary_frame_025_bin_end[];
-extern const uint8_t _binary_frame_026_bin_start[];
-extern const uint8_t _binary_frame_026_bin_end[];
-extern const uint8_t _binary_frame_027_bin_start[];
-extern const uint8_t _binary_frame_027_bin_end[];
-extern const uint8_t _binary_frame_028_bin_start[];
-extern const uint8_t _binary_frame_028_bin_end[];
-extern const uint8_t _binary_frame_029_bin_start[];
-extern const uint8_t _binary_frame_029_bin_end[];
-extern const uint8_t _binary_frame_030_bin_start[];
-extern const uint8_t _binary_frame_030_bin_end[];
-extern const uint8_t _binary_frame_031_bin_start[];
-extern const uint8_t _binary_frame_031_bin_end[];
-extern const uint8_t _binary_frame_032_bin_start[];
-extern const uint8_t _binary_frame_032_bin_end[];
-extern const uint8_t _binary_frame_033_bin_start[];
-extern const uint8_t _binary_frame_033_bin_end[];
-extern const uint8_t _binary_frame_034_bin_start[];
-extern const uint8_t _binary_frame_034_bin_end[];
-extern const uint8_t _binary_frame_035_bin_start[];
-extern const uint8_t _binary_frame_035_bin_end[];
-extern const uint8_t _binary_frame_036_bin_start[];
-extern const uint8_t _binary_frame_036_bin_end[];
-extern const uint8_t _binary_frame_037_bin_start[];
-extern const uint8_t _binary_frame_037_bin_end[];
-extern const uint8_t _binary_frame_038_bin_start[];
-extern const uint8_t _binary_frame_038_bin_end[];
-extern const uint8_t _binary_frame_039_bin_start[];
-extern const uint8_t _binary_frame_039_bin_end[];
-extern const uint8_t _binary_frame_040_bin_start[];
-extern const uint8_t _binary_frame_040_bin_end[];
-extern const uint8_t _binary_frame_041_bin_start[];
-extern const uint8_t _binary_frame_041_bin_end[];
-extern const uint8_t _binary_frame_042_bin_start[];
-extern const uint8_t _binary_frame_042_bin_end[];
-extern const uint8_t _binary_frame_043_bin_start[];
-extern const uint8_t _binary_frame_043_bin_end[];
-extern const uint8_t _binary_frame_044_bin_start[];
-extern const uint8_t _binary_frame_044_bin_end[];
-extern const uint8_t _binary_frame_045_bin_start[];
-extern const uint8_t _binary_frame_045_bin_end[];
-extern const uint8_t _binary_frame_046_bin_start[];
-extern const uint8_t _binary_frame_046_bin_end[];
-extern const uint8_t _binary_frame_047_bin_start[];
-extern const uint8_t _binary_frame_047_bin_end[];
-extern const uint8_t _binary_frame_048_bin_start[];
-extern const uint8_t _binary_frame_048_bin_end[];
-extern const uint8_t _binary_frame_049_bin_start[];
-extern const uint8_t _binary_frame_049_bin_end[];
-extern const uint8_t _binary_frame_050_bin_start[];
-extern const uint8_t _binary_frame_050_bin_end[];
-extern const uint8_t _binary_frame_051_bin_start[];
-extern const uint8_t _binary_frame_051_bin_end[];
-extern const uint8_t _binary_frame_052_bin_start[];
-extern const uint8_t _binary_frame_052_bin_end[];
-extern const uint8_t _binary_frame_053_bin_start[];
-extern const uint8_t _binary_frame_053_bin_end[];
-extern const uint8_t _binary_frame_054_bin_start[];
-extern const uint8_t _binary_frame_054_bin_end[];
-extern const uint8_t _binary_frame_055_bin_start[];
-extern const uint8_t _binary_frame_055_bin_end[];
-extern const uint8_t _binary_frame_056_bin_start[];
-extern const uint8_t _binary_frame_056_bin_end[];
-extern const uint8_t _binary_frame_057_bin_start[];
-extern const uint8_t _binary_frame_057_bin_end[];
-extern const uint8_t _binary_frame_058_bin_start[];
-extern const uint8_t _binary_frame_058_bin_end[];
-extern const uint8_t _binary_frame_059_bin_start[];
-extern const uint8_t _binary_frame_059_bin_end[];
-extern const uint8_t _binary_frame_060_bin_start[];
-extern const uint8_t _binary_frame_060_bin_end[];
-extern const uint8_t _binary_frame_061_bin_start[];
-extern const uint8_t _binary_frame_061_bin_end[];
-extern const uint8_t _binary_frame_062_bin_start[];
-extern const uint8_t _binary_frame_062_bin_end[];
-extern const uint8_t _binary_frame_063_bin_start[];
-extern const uint8_t _binary_frame_063_bin_end[];
-extern const uint8_t _binary_frame_064_bin_start[];
-extern const uint8_t _binary_frame_064_bin_end[];
-extern const uint8_t _binary_frame_065_bin_start[];
-extern const uint8_t _binary_frame_065_bin_end[];
-extern const uint8_t _binary_frame_066_bin_start[];
-extern const uint8_t _binary_frame_066_bin_end[];
-extern const uint8_t _binary_frame_067_bin_start[];
-extern const uint8_t _binary_frame_067_bin_end[];
-extern const uint8_t _binary_frame_068_bin_start[];
-extern const uint8_t _binary_frame_068_bin_end[];
-extern const uint8_t _binary_frame_069_bin_start[];
-extern const uint8_t _binary_frame_069_bin_end[];
-extern const uint8_t _binary_frame_070_bin_start[];
-extern const uint8_t _binary_frame_070_bin_end[];
-extern const uint8_t _binary_frame_071_bin_start[];
-extern const uint8_t _binary_frame_071_bin_end[];
-extern const uint8_t _binary_frame_072_bin_start[];
-extern const uint8_t _binary_frame_072_bin_end[];
-extern const uint8_t _binary_frame_073_bin_start[];
-extern const uint8_t _binary_frame_073_bin_end[];
-extern const uint8_t _binary_frame_074_bin_start[];
-extern const uint8_t _binary_frame_074_bin_end[];
-extern const uint8_t _binary_frame_075_bin_start[];
-extern const uint8_t _binary_frame_075_bin_end[];
-extern const uint8_t _binary_frame_076_bin_start[];
-extern const uint8_t _binary_frame_076_bin_end[];
-extern const uint8_t _binary_frame_077_bin_start[];
-extern const uint8_t _binary_frame_077_bin_end[];
-extern const uint8_t _binary_frame_078_bin_start[];
-extern const uint8_t _binary_frame_078_bin_end[];
-extern const uint8_t _binary_frame_079_bin_start[];
-extern const uint8_t _binary_frame_079_bin_end[];
-extern const uint8_t _binary_frame_080_bin_start[];
-extern const uint8_t _binary_frame_080_bin_end[];
-extern const uint8_t _binary_frame_081_bin_start[];
-extern const uint8_t _binary_frame_081_bin_end[];
-extern const uint8_t _binary_frame_082_bin_start[];
-extern const uint8_t _binary_frame_082_bin_end[];
-extern const uint8_t _binary_frame_083_bin_start[];
-extern const uint8_t _binary_frame_083_bin_end[];
-extern const uint8_t _binary_frame_084_bin_start[];
-extern const uint8_t _binary_frame_084_bin_end[];
-extern const uint8_t _binary_frame_085_bin_start[];
-extern const uint8_t _binary_frame_085_bin_end[];
-extern const uint8_t _binary_frame_086_bin_start[];
-extern const uint8_t _binary_frame_086_bin_end[];
-extern const uint8_t _binary_frame_087_bin_start[];
-extern const uint8_t _binary_frame_087_bin_end[];
-extern const uint8_t _binary_frame_088_bin_start[];
-extern const uint8_t _binary_frame_088_bin_end[];
-extern const uint8_t _binary_frame_089_bin_start[];
-extern const uint8_t _binary_frame_089_bin_end[];
-extern const uint8_t _binary_frame_090_bin_start[];
-extern const uint8_t _binary_frame_090_bin_end[];
-extern const uint8_t _binary_frame_091_bin_start[];
-extern const uint8_t _binary_frame_091_bin_end[];
-extern const uint8_t _binary_frame_092_bin_start[];
-extern const uint8_t _binary_frame_092_bin_end[];
-extern const uint8_t _binary_frame_093_bin_start[];
-extern const uint8_t _binary_frame_093_bin_end[];
-extern const uint8_t _binary_frame_094_bin_start[];
-extern const uint8_t _binary_frame_094_bin_end[];
-extern const uint8_t _binary_frame_095_bin_start[];
-extern const uint8_t _binary_frame_095_bin_end[];
-extern const uint8_t _binary_frame_096_bin_start[];
-extern const uint8_t _binary_frame_096_bin_end[];
-extern const uint8_t _binary_frame_097_bin_start[];
-extern const uint8_t _binary_frame_097_bin_end[];
-extern const uint8_t _binary_frame_098_bin_start[];
-extern const uint8_t _binary_frame_098_bin_end[];
-extern const uint8_t _binary_frame_099_bin_start[];
-extern const uint8_t _binary_frame_099_bin_end[];
-extern const uint8_t _binary_frame_100_bin_start[];
-extern const uint8_t _binary_frame_100_bin_end[];
-extern const uint8_t _binary_frame_101_bin_start[];
-extern const uint8_t _binary_frame_101_bin_end[];
-extern const uint8_t _binary_frame_102_bin_start[];
-extern const uint8_t _binary_frame_102_bin_end[];
-extern const uint8_t _binary_frame_103_bin_start[];
-extern const uint8_t _binary_frame_103_bin_end[];
-extern const uint8_t _binary_frame_104_bin_start[];
-extern const uint8_t _binary_frame_104_bin_end[];
-extern const uint8_t _binary_frame_105_bin_start[];
-extern const uint8_t _binary_frame_105_bin_end[];
-extern const uint8_t _binary_frame_106_bin_start[];
-extern const uint8_t _binary_frame_106_bin_end[];
-extern const uint8_t _binary_frame_107_bin_start[];
-extern const uint8_t _binary_frame_107_bin_end[];
-extern const uint8_t _binary_frame_108_bin_start[];
-extern const uint8_t _binary_frame_108_bin_end[];
-extern const uint8_t _binary_frame_109_bin_start[];
-extern const uint8_t _binary_frame_109_bin_end[];
-extern const uint8_t _binary_frame_110_bin_start[];
-extern const uint8_t _binary_frame_110_bin_end[];
-extern const uint8_t _binary_frame_111_bin_start[];
-extern const uint8_t _binary_frame_111_bin_end[];
-extern const uint8_t _binary_frame_112_bin_start[];
-extern const uint8_t _binary_frame_112_bin_end[];
-extern const uint8_t _binary_frame_113_bin_start[];
-extern const uint8_t _binary_frame_113_bin_end[];
-extern const uint8_t _binary_frame_114_bin_start[];
-extern const uint8_t _binary_frame_114_bin_end[];
-extern const uint8_t _binary_frame_115_bin_start[];
-extern const uint8_t _binary_frame_115_bin_end[];
-extern const uint8_t _binary_frame_116_bin_start[];
-extern const uint8_t _binary_frame_116_bin_end[];
-extern const uint8_t _binary_frame_117_bin_start[];
-extern const uint8_t _binary_frame_117_bin_end[];
-extern const uint8_t _binary_frame_118_bin_start[];
-extern const uint8_t _binary_frame_118_bin_end[];
+extern const uint8_t _binary_frame_00_bin_start[];
+extern const uint8_t _binary_frame_00_bin_end[];
+extern const uint8_t _binary_frame_01_bin_start[];
+extern const uint8_t _binary_frame_01_bin_end[];
+extern const uint8_t _binary_frame_02_bin_start[];
+extern const uint8_t _binary_frame_02_bin_end[];
+extern const uint8_t _binary_frame_03_bin_start[];
+extern const uint8_t _binary_frame_03_bin_end[];
+extern const uint8_t _binary_frame_04_bin_start[];
+extern const uint8_t _binary_frame_04_bin_end[];
+extern const uint8_t _binary_frame_05_bin_start[];
+extern const uint8_t _binary_frame_05_bin_end[];
+extern const uint8_t _binary_frame_06_bin_start[];
+extern const uint8_t _binary_frame_06_bin_end[];
+extern const uint8_t _binary_frame_07_bin_start[];
+extern const uint8_t _binary_frame_07_bin_end[];
+extern const uint8_t _binary_frame_08_bin_start[];
+extern const uint8_t _binary_frame_08_bin_end[];
+extern const uint8_t _binary_frame_09_bin_start[];
+extern const uint8_t _binary_frame_09_bin_end[];
+extern const uint8_t _binary_frame_10_bin_start[];
+extern const uint8_t _binary_frame_10_bin_end[];
+extern const uint8_t _binary_frame_11_bin_start[];
+extern const uint8_t _binary_frame_11_bin_end[];
+extern const uint8_t _binary_frame_12_bin_start[];
+extern const uint8_t _binary_frame_12_bin_end[];
+extern const uint8_t _binary_frame_13_bin_start[];
+extern const uint8_t _binary_frame_13_bin_end[];
+extern const uint8_t _binary_frame_14_bin_start[];
+extern const uint8_t _binary_frame_14_bin_end[];
+extern const uint8_t _binary_frame_15_bin_start[];
+extern const uint8_t _binary_frame_15_bin_end[];
+extern const uint8_t _binary_frame_16_bin_start[];
+extern const uint8_t _binary_frame_16_bin_end[];
+extern const uint8_t _binary_frame_17_bin_start[];
+extern const uint8_t _binary_frame_17_bin_end[];
+extern const uint8_t _binary_frame_18_bin_start[];
+extern const uint8_t _binary_frame_18_bin_end[];
+extern const uint8_t _binary_frame_19_bin_start[];
+extern const uint8_t _binary_frame_19_bin_end[];
+extern const uint8_t _binary_frame_20_bin_start[];
+extern const uint8_t _binary_frame_20_bin_end[];
+extern const uint8_t _binary_frame_21_bin_start[];
+extern const uint8_t _binary_frame_21_bin_end[];
+extern const uint8_t _binary_frame_22_bin_start[];
+extern const uint8_t _binary_frame_22_bin_end[];
+extern const uint8_t _binary_frame_23_bin_start[];
+extern const uint8_t _binary_frame_23_bin_end[];
+extern const uint8_t _binary_frame_24_bin_start[];
+extern const uint8_t _binary_frame_24_bin_end[];
+extern const uint8_t _binary_frame_25_bin_start[];
+extern const uint8_t _binary_frame_25_bin_end[];
+extern const uint8_t _binary_frame_26_bin_start[];
+extern const uint8_t _binary_frame_26_bin_end[];
+extern const uint8_t _binary_frame_27_bin_start[];
+extern const uint8_t _binary_frame_27_bin_end[];
+extern const uint8_t _binary_frame_28_bin_start[];
+extern const uint8_t _binary_frame_28_bin_end[];
+extern const uint8_t _binary_frame_29_bin_start[];
+extern const uint8_t _binary_frame_29_bin_end[];
+extern const uint8_t _binary_frame_30_bin_start[];
+extern const uint8_t _binary_frame_30_bin_end[];
+extern const uint8_t _binary_frame_31_bin_start[];
+extern const uint8_t _binary_frame_31_bin_end[];
+extern const uint8_t _binary_frame_32_bin_start[];
+extern const uint8_t _binary_frame_32_bin_end[];
+extern const uint8_t _binary_frame_33_bin_start[];
+extern const uint8_t _binary_frame_33_bin_end[];
+extern const uint8_t _binary_frame_34_bin_start[];
+extern const uint8_t _binary_frame_34_bin_end[];
+extern const uint8_t _binary_frame_35_bin_start[];
+extern const uint8_t _binary_frame_35_bin_end[];
+extern const uint8_t _binary_frame_36_bin_start[];
+extern const uint8_t _binary_frame_36_bin_end[];
+extern const uint8_t _binary_frame_37_bin_start[];
+extern const uint8_t _binary_frame_37_bin_end[];
+extern const uint8_t _binary_frame_38_bin_start[];
+extern const uint8_t _binary_frame_38_bin_end[];
+extern const uint8_t _binary_frame_39_bin_start[];
+extern const uint8_t _binary_frame_39_bin_end[];
+extern const uint8_t _binary_frame_40_bin_start[];
+extern const uint8_t _binary_frame_40_bin_end[];
+extern const uint8_t _binary_frame_41_bin_start[];
+extern const uint8_t _binary_frame_41_bin_end[];
+extern const uint8_t _binary_frame_42_bin_start[];
+extern const uint8_t _binary_frame_42_bin_end[];
+extern const uint8_t _binary_frame_43_bin_start[];
+extern const uint8_t _binary_frame_43_bin_end[];
+extern const uint8_t _binary_frame_44_bin_start[];
+extern const uint8_t _binary_frame_44_bin_end[];
+extern const uint8_t _binary_frame_45_bin_start[];
+extern const uint8_t _binary_frame_45_bin_end[];
+extern const uint8_t _binary_frame_46_bin_start[];
+extern const uint8_t _binary_frame_46_bin_end[];
+extern const uint8_t _binary_frame_47_bin_start[];
+extern const uint8_t _binary_frame_47_bin_end[];
+extern const uint8_t _binary_frame_48_bin_start[];
+extern const uint8_t _binary_frame_48_bin_end[];
+extern const uint8_t _binary_frame_49_bin_start[];
+extern const uint8_t _binary_frame_49_bin_end[];
+extern const uint8_t _binary_frame_50_bin_start[];
+extern const uint8_t _binary_frame_50_bin_end[];
+extern const uint8_t _binary_frame_51_bin_start[];
+extern const uint8_t _binary_frame_51_bin_end[];
+extern const uint8_t _binary_frame_52_bin_start[];
+extern const uint8_t _binary_frame_52_bin_end[];
+extern const uint8_t _binary_frame_53_bin_start[];
+extern const uint8_t _binary_frame_53_bin_end[];
+extern const uint8_t _binary_frame_54_bin_start[];
+extern const uint8_t _binary_frame_54_bin_end[];
+extern const uint8_t _binary_frame_55_bin_start[];
+extern const uint8_t _binary_frame_55_bin_end[];
+extern const uint8_t _binary_frame_56_bin_start[];
+extern const uint8_t _binary_frame_56_bin_end[];
+extern const uint8_t _binary_frame_57_bin_start[];
+extern const uint8_t _binary_frame_57_bin_end[];
+extern const uint8_t _binary_frame_58_bin_start[];
+extern const uint8_t _binary_frame_58_bin_end[];
+extern const uint8_t _binary_frame_59_bin_start[];
+extern const uint8_t _binary_frame_59_bin_end[];
+extern const uint8_t _binary_frame_60_bin_start[];
+extern const uint8_t _binary_frame_60_bin_end[];
+extern const uint8_t _binary_frame_61_bin_start[];
+extern const uint8_t _binary_frame_61_bin_end[];
+extern const uint8_t _binary_frame_62_bin_start[];
+extern const uint8_t _binary_frame_62_bin_end[];
+extern const uint8_t _binary_frame_63_bin_start[];
+extern const uint8_t _binary_frame_63_bin_end[];
+extern const uint8_t _binary_frame_64_bin_start[];
+extern const uint8_t _binary_frame_64_bin_end[];
+extern const uint8_t _binary_frame_65_bin_start[];
+extern const uint8_t _binary_frame_65_bin_end[];
+extern const uint8_t _binary_frame_66_bin_start[];
+extern const uint8_t _binary_frame_66_bin_end[];
+extern const uint8_t _binary_frame_67_bin_start[];
+extern const uint8_t _binary_frame_67_bin_end[];
+extern const uint8_t _binary_frame_68_bin_start[];
+extern const uint8_t _binary_frame_68_bin_end[];
+extern const uint8_t _binary_frame_69_bin_start[];
+extern const uint8_t _binary_frame_69_bin_end[];
+extern const uint8_t _binary_frame_70_bin_start[];
+extern const uint8_t _binary_frame_70_bin_end[];
+extern const uint8_t _binary_frame_71_bin_start[];
+extern const uint8_t _binary_frame_71_bin_end[];
+extern const uint8_t _binary_frame_72_bin_start[];
+extern const uint8_t _binary_frame_72_bin_end[];
+extern const uint8_t _binary_frame_73_bin_start[];
+extern const uint8_t _binary_frame_73_bin_end[];
+extern const uint8_t _binary_frame_74_bin_start[];
+extern const uint8_t _binary_frame_74_bin_end[];
+extern const uint8_t _binary_frame_75_bin_start[];
+extern const uint8_t _binary_frame_75_bin_end[];
+extern const uint8_t _binary_frame_76_bin_start[];
+extern const uint8_t _binary_frame_76_bin_end[];
+extern const uint8_t _binary_frame_77_bin_start[];
+extern const uint8_t _binary_frame_77_bin_end[];
+extern const uint8_t _binary_frame_78_bin_start[];
+extern const uint8_t _binary_frame_78_bin_end[];
+extern const uint8_t _binary_frame_79_bin_start[];
+extern const uint8_t _binary_frame_79_bin_end[];
+extern const uint8_t _binary_frame_80_bin_start[];
+extern const uint8_t _binary_frame_80_bin_end[];
+extern const uint8_t _binary_frame_81_bin_start[];
+extern const uint8_t _binary_frame_81_bin_end[];
+extern const uint8_t _binary_frame_82_bin_start[];
+extern const uint8_t _binary_frame_82_bin_end[];
+extern const uint8_t _binary_frame_83_bin_start[];
+extern const uint8_t _binary_frame_83_bin_end[];
+extern const uint8_t _binary_frame_84_bin_start[];
+extern const uint8_t _binary_frame_84_bin_end[];
+extern const uint8_t _binary_frame_85_bin_start[];
+extern const uint8_t _binary_frame_85_bin_end[];
+extern const uint8_t _binary_frame_86_bin_start[];
+extern const uint8_t _binary_frame_86_bin_end[];
+extern const uint8_t _binary_frame_87_bin_start[];
+extern const uint8_t _binary_frame_87_bin_end[];
+extern const uint8_t _binary_frame_88_bin_start[];
+extern const uint8_t _binary_frame_88_bin_end[];
+extern const uint8_t _binary_frame_89_bin_start[];
+extern const uint8_t _binary_frame_89_bin_end[];
 
 static const lv_image_dsc_t frames[] = {
-    FRAME_DSC(000),
-    FRAME_DSC(001),
-    FRAME_DSC(002),
-    FRAME_DSC(003),
-    FRAME_DSC(004),
-    FRAME_DSC(005),
-    FRAME_DSC(006),
-    FRAME_DSC(007),
-    FRAME_DSC(008),
-    FRAME_DSC(009),
-    FRAME_DSC(010),
-    FRAME_DSC(011),
-    FRAME_DSC(012),
-    FRAME_DSC(013),
-    FRAME_DSC(014),
-    FRAME_DSC(015),
-    FRAME_DSC(016),
-    FRAME_DSC(017),
-    FRAME_DSC(018),
-    FRAME_DSC(019),
-    FRAME_DSC(020),
-    FRAME_DSC(021),
-    FRAME_DSC(022),
-    FRAME_DSC(023),
-    FRAME_DSC(024),
-    FRAME_DSC(025),
-    FRAME_DSC(026),
-    FRAME_DSC(027),
-    FRAME_DSC(028),
-    FRAME_DSC(029),
-    FRAME_DSC(030),
-    FRAME_DSC(031),
-    FRAME_DSC(032),
-    FRAME_DSC(033),
-    FRAME_DSC(034),
-    FRAME_DSC(035),
-    FRAME_DSC(036),
-    FRAME_DSC(037),
-    FRAME_DSC(038),
-    FRAME_DSC(039),
-    FRAME_DSC(040),
-    FRAME_DSC(041),
-    FRAME_DSC(042),
-    FRAME_DSC(043),
-    FRAME_DSC(044),
-    FRAME_DSC(045),
-    FRAME_DSC(046),
-    FRAME_DSC(047),
-    FRAME_DSC(048),
-    FRAME_DSC(049),
-    FRAME_DSC(050),
-    FRAME_DSC(051),
-    FRAME_DSC(052),
-    FRAME_DSC(053),
-    FRAME_DSC(054),
-    FRAME_DSC(055),
-    FRAME_DSC(056),
-    FRAME_DSC(057),
-    FRAME_DSC(058),
-    FRAME_DSC(059),
-    FRAME_DSC(060),
-    FRAME_DSC(061),
-    FRAME_DSC(062),
-    FRAME_DSC(063),
-    FRAME_DSC(064),
-    FRAME_DSC(065),
-    FRAME_DSC(066),
-    FRAME_DSC(067),
-    FRAME_DSC(068),
-    FRAME_DSC(069),
-    FRAME_DSC(070),
-    FRAME_DSC(071),
-    FRAME_DSC(072),
-    FRAME_DSC(073),
-    FRAME_DSC(074),
-    FRAME_DSC(075),
-    FRAME_DSC(076),
-    FRAME_DSC(077),
-    FRAME_DSC(078),
-    FRAME_DSC(079),
-    FRAME_DSC(080),
-    FRAME_DSC(081),
-    FRAME_DSC(082),
-    FRAME_DSC(083),
-    FRAME_DSC(084),
-    FRAME_DSC(085),
-    FRAME_DSC(086),
-    FRAME_DSC(087),
-    FRAME_DSC(088),
-    FRAME_DSC(089),
-    FRAME_DSC(090),
-    FRAME_DSC(091),
-    FRAME_DSC(092),
-    FRAME_DSC(093),
-    FRAME_DSC(094),
-    FRAME_DSC(095),
-    FRAME_DSC(096),
-    FRAME_DSC(097),
-    FRAME_DSC(098),
-    FRAME_DSC(099),
-    FRAME_DSC(100),
-    FRAME_DSC(101),
-    FRAME_DSC(102),
-    FRAME_DSC(103),
-    FRAME_DSC(104),
-    FRAME_DSC(105),
-    FRAME_DSC(106),
-    FRAME_DSC(107),
-    FRAME_DSC(108),
-    FRAME_DSC(109),
-    FRAME_DSC(110),
-    FRAME_DSC(111),
-    FRAME_DSC(112),
-    FRAME_DSC(113),
-    FRAME_DSC(114),
-    FRAME_DSC(115),
-    FRAME_DSC(116),
-    FRAME_DSC(117),
-    FRAME_DSC(118),
+    FRAME_DSC(00),
+    FRAME_DSC(01),
+    FRAME_DSC(02),
+    FRAME_DSC(03),
+    FRAME_DSC(04),
+    FRAME_DSC(05),
+    FRAME_DSC(06),
+    FRAME_DSC(07),
+    FRAME_DSC(08),
+    FRAME_DSC(09),
+    FRAME_DSC(10),
+    FRAME_DSC(11),
+    FRAME_DSC(12),
+    FRAME_DSC(13),
+    FRAME_DSC(14),
+    FRAME_DSC(15),
+    FRAME_DSC(16),
+    FRAME_DSC(17),
+    FRAME_DSC(18),
+    FRAME_DSC(19),
+    FRAME_DSC(20),
+    FRAME_DSC(21),
+    FRAME_DSC(22),
+    FRAME_DSC(23),
+    FRAME_DSC(24),
+    FRAME_DSC(25),
+    FRAME_DSC(26),
+    FRAME_DSC(27),
+    FRAME_DSC(28),
+    FRAME_DSC(29),
+    FRAME_DSC(30),
+    FRAME_DSC(31),
+    FRAME_DSC(32),
+    FRAME_DSC(33),
+    FRAME_DSC(34),
+    FRAME_DSC(35),
+    FRAME_DSC(36),
+    FRAME_DSC(37),
+    FRAME_DSC(38),
+    FRAME_DSC(39),
+    FRAME_DSC(40),
+    FRAME_DSC(41),
+    FRAME_DSC(42),
+    FRAME_DSC(43),
+    FRAME_DSC(44),
+    FRAME_DSC(45),
+    FRAME_DSC(46),
+    FRAME_DSC(47),
+    FRAME_DSC(48),
+    FRAME_DSC(49),
+    FRAME_DSC(50),
+    FRAME_DSC(51),
+    FRAME_DSC(52),
+    FRAME_DSC(53),
+    FRAME_DSC(54),
+    FRAME_DSC(55),
+    FRAME_DSC(56),
+    FRAME_DSC(57),
+    FRAME_DSC(58),
+    FRAME_DSC(59),
+    FRAME_DSC(60),
+    FRAME_DSC(61),
+    FRAME_DSC(62),
+    FRAME_DSC(63),
+    FRAME_DSC(64),
+    FRAME_DSC(65),
+    FRAME_DSC(66),
+    FRAME_DSC(67),
+    FRAME_DSC(68),
+    FRAME_DSC(69),
+    FRAME_DSC(70),
+    FRAME_DSC(71),
+    FRAME_DSC(72),
+    FRAME_DSC(73),
+    FRAME_DSC(74),
+    FRAME_DSC(75),
+    FRAME_DSC(76),
+    FRAME_DSC(77),
+    FRAME_DSC(78),
+    FRAME_DSC(79),
+    FRAME_DSC(80),
+    FRAME_DSC(81),
+    FRAME_DSC(82),
+    FRAME_DSC(83),
+    FRAME_DSC(84),
+    FRAME_DSC(85),
+    FRAME_DSC(86),
+    FRAME_DSC(87),
+    FRAME_DSC(88),
+    FRAME_DSC(89),
 };
 
 static const int frames_count = sizeof(frames) / sizeof(lv_image_dsc_t);

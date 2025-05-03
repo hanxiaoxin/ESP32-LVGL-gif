@@ -302,11 +302,15 @@ void Display::SetTheme(const std::string &theme_name) {
 }
 
 void Display::setBackGround(const lv_img_dsc_t *img) {
-  DisplayLockGuard lock(this);
-  // bg_img = lv_image_create(content_);
-  // lv_image_set_src(bg_img, img);
-  // lv_obj_center(bg_img);
+  lv_obj_clean(content_);
+  lv_image_cache_drop(NULL);
+
+  free_heap();
+  bg_img = lv_image_create(content_);
+  lv_image_set_src(bg_img, img);
+  lv_obj_center(bg_img);
+
   // lv_obj_set_style_border_color(img_obj, lv_color_black(), LV_PART_MAIN);
   // lv_obj_set_style_border_width(img_obj, 2, LV_PART_MAIN);
-  lv_obj_set_style_bg_img_src(content_, img, 0);
+  // lv_obj_set_style_bg_img_src(content_, img, 0);
 }

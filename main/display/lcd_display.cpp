@@ -324,7 +324,7 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_set_style_text_color(clock_label_, lv_color_white(), 0);
   lv_obj_set_style_bg_opa(clock_label_, LV_OPA_TRANSP, 0);
-  lv_obj_set_style_text_font(clock_label_, &lv_font_montserrat_28, 0);
+  lv_obj_set_style_text_font(clock_label_, LV_FONT_MONTSERRAT_28, 0);
 
   emotion_label_ = lv_label_create(content_);
   lv_obj_set_style_text_font(emotion_label_, &font_awesome_30_4, 0);

@@ -3,7 +3,7 @@
 #include "stdint.h"
 #include "lvgl.h"
 
-#define HEAP_SIZE 200
+#define HEAP_SIZE 120
 
 static const char *TAG = "UTILS";
 static uint8_t *big_buf;
@@ -31,9 +31,9 @@ void print_binary(uint8_t *bin_end, uint8_t *bin_start) {
 void print_heap(){
   int free_sram = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
   int min_free_sram = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
-  // heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
-  // ESP_LOGI(TAG, "Largest free internal block: %d",
-  //          heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
+  heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
+  ESP_LOGI(TAG, "Largest free internal block: %d",
+           heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
   ESP_LOGI(TAG, "Free internal: %u minimal internal: %u", free_sram,
            min_free_sram);
 
@@ -55,5 +55,5 @@ void free_heap() {
     heap_caps_free(big_buf);
     big_buf = nullptr;
   }
-  // print_heap();
+  print_heap();
 }
