@@ -25,6 +25,7 @@
 #define DISPLAY_INVERT_COLOR false
 #define DISPLAY_OFFSET_X 0
 #define DISPLAY_OFFSET_Y 0
+#define DISPLAY_BG_PEROID 30000
 
 // LCD
 #define LCD_SPI_MODE 0
