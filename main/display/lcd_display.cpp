@@ -2,6 +2,7 @@
 #include "assets/frames.h"
 #include "assets/lang_config.h"
 #include "config.h"
+#include "demos/lv_demos.h"
 #include "settings.h"
 #include "utils.h"
 #include <algorithm>
@@ -299,26 +300,6 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_style_pad_left(status_bar_, 16, 0);
   lv_obj_set_style_pad_right(status_bar_, 16, 0);
 
-  /* clock_label */
-  clock_bar_ = lv_obj_create(container_);
-  lv_obj_set_pos(clock_bar_, 0, 20);
-  lv_obj_set_width(clock_bar_,LV_HOR_RES);
-  lv_obj_set_height(clock_bar_, LV_VER_RES * 0.1);
-
-  lv_obj_set_scrollbar_mode(clock_bar_, LV_SCROLLBAR_MODE_OFF);
-  lv_obj_set_flex_align(clock_bar_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
-                        LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
-
-  lv_obj_set_style_radius(clock_bar_, 0, 0);
-  lv_obj_set_style_bg_color(clock_bar_, current_theme.background, 0);
-  lv_obj_set_style_text_color(clock_bar_, current_theme.text, 0);
-  lv_obj_set_flex_flow(clock_bar_, LV_FLEX_FLOW_ROW);
-  lv_obj_set_style_border_width(clock_bar_, 0, 0);
-
-  clock_label_ = lv_label_create(clock_bar_);
-  lv_label_set_text(clock_label_, "--:--:--");
-  lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_CENTER, 0);
-
   /* Content */
   content_ = lv_obj_create(container_);
   lv_obj_set_scrollbar_mode(content_, LV_SCROLLBAR_MODE_OFF);
@@ -326,12 +307,24 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_width(content_, LV_HOR_RES);
   lv_obj_set_flex_grow(content_, 1);
   lv_obj_set_style_pad_all(content_, 0, 0);
-  lv_obj_set_style_bg_color(content_, lv_color_hex(LCD_BG_COLOR), 0);
-  lv_obj_set_style_border_color(content_, lv_color_hex(LCD_BG_COLOR), 0);
+  lv_obj_set_style_pad_top(content_, 10, 0);
+  lv_obj_set_style_bg_color(
+      content_, lv_color_hex(LCD_BG_COLOR), 0);
+  lv_obj_set_style_border_width(content_, 0, 0);
+  // lv_obj_set_style_border_color(content_, lv_color_hex(LCD_BG_COLOR), 0);
 
   lv_obj_set_flex_flow(content_, LV_FLEX_FLOW_COLUMN); // 垂直布局（从上到下）
-  lv_obj_set_flex_align(content_, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER,
+  lv_obj_set_flex_align(content_, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER,
                         LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
+
+  /* clock_label */
+  clock_label_ = lv_label_create(content_);
+  lv_label_set_text(clock_label_, "--:--:--");
+  // lv_obj_set_size(clock_label_, LV_HOR_RES, fonts_.text_font->line_height);
+  lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_color(clock_label_, lv_color_white(), 0);
+  lv_obj_set_style_bg_opa(clock_label_, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_text_font(clock_label_, &lv_font_montserrat_28, 0);
 
   emotion_label_ = lv_label_create(content_);
   lv_obj_set_style_text_font(emotion_label_, &font_awesome_30_4, 0);

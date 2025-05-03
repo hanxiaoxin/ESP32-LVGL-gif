@@ -73,7 +73,7 @@ Display::Display() {
       .skip_unhandled_events = true,
   };
   ESP_ERROR_CHECK(esp_timer_create(&bg_timer_args, &bg_timer_));
-  ESP_ERROR_CHECK(esp_timer_start_periodic(bg_timer_, 60000));
+  ESP_ERROR_CHECK(esp_timer_start_periodic(bg_timer_, 30000));
 
   // Update display timer
   esp_timer_create_args_t update_display_timer_args = {
@@ -302,14 +302,10 @@ void Display::SetTheme(const std::string &theme_name) {
 
 void Display::setBackGround(const lv_img_dsc_t *img) {
   DisplayLockGuard lock(this);
-  lv_obj_clean(content_);
-  lv_image_cache_drop(NULL);
-
-  bg_img = lv_image_create(content_);
-  lv_image_set_src(bg_img, img);
-  lv_obj_center(bg_img);
-
+  // bg_img = lv_image_create(content_);
+  // lv_image_set_src(bg_img, img);
+  // lv_obj_center(bg_img);
   // lv_obj_set_style_border_color(img_obj, lv_color_black(), LV_PART_MAIN);
   // lv_obj_set_style_border_width(img_obj, 2, LV_PART_MAIN);
-  // lv_obj_set_style_bg_img_src(content_, img, 0);
+  lv_obj_set_style_bg_img_src(content_, img, 0);
 }

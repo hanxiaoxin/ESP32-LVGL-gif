@@ -87,7 +87,9 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "lvgl.h": "c"
+        "lvgl.h": "c",
+        "lv_global.h": "c",
+        "lv_color.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled",
     "idf.flashType": "UART"

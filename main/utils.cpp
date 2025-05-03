@@ -3,7 +3,7 @@
 #include "stdint.h"
 #include "lvgl.h"
 
-#define HEAP_SIZE 128
+#define HEAP_SIZE 200
 
 static const char *TAG = "UTILS";
 static uint8_t *big_buf;
