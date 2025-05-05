@@ -36,11 +36,21 @@ void log_heap(){
   int total_sram = heap_caps_get_total_size(MALLOC_CAP_INTERNAL);
   int free_sram = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
   int min_free_sram = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
-  // heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
-  // ESP_LOGI(TAG, "Largest free internal block: %d",
-          //  heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
+  heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
+  ESP_LOGI(TAG, "Largest free internal block: %d",
+           heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
   ESP_LOGI(TAG, "Free internal: %u minimal internal: %u, total internal %u",
            free_sram, min_free_sram, total_sram);
+
+  int total_psram = heap_caps_get_total_size(MALLOC_CAP_SPIRAM);
+  int free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
+  int min_free_psram = heap_caps_get_minimum_free_size(MALLOC_CAP_SPIRAM);
+
+  heap_caps_get_largest_free_block(MALLOC_CAP_SPIRAM);
+  ESP_LOGI(TAG, "Largest free spiram block: %d",
+           heap_caps_get_largest_free_block(MALLOC_CAP_SPIRAM));
+  ESP_LOGI(TAG, "Free spiram: %u minimal spiram: %u, total spiram %u",
+           free_psram, min_free_psram, total_psram);
 }
 
 

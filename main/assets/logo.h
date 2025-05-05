@@ -10,7 +10,7 @@ extern const lv_image_dsc_t logo = {
     .header =
         {
             .magic = LV_IMAGE_HEADER_MAGIC,
-            .cf = LV_COLOR_FORMAT_RGB565,
+            .cf = LV_COLOR_FORMAT_RGB565A8,
             .flags = 0 | LV_IMAGE_FLAGS_COMPRESSED,
             .w = LOGO_WIDTH,
             .h = LOGO_HEIGHT,

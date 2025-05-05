@@ -309,7 +309,6 @@ void Display::setBackGround(const lv_img_dsc_t *img) {
   if (MAX_BG_IMG_COUNT > 0 && bg_img_array.size() >= MAX_BG_IMG_COUNT) {
     releaseOldestBgImg();
   }
-
   lv_obj_del(bg_img);
   // log_heap();
 
@@ -324,22 +323,29 @@ void Display::setBackGround(const lv_img_dsc_t *img) {
   // lv_obj_set_style_bg_img_src(content_, img, 0);
 }
 
+// 释放最早添加的背景图像
+void Display::releaseOldestBgImg() {
+  if (bg_img_array.empty())
+    return;
+
+  lv_obj_t *img_obj = bg_img_array.front();
+  const void *src = lv_image_get_src(img_obj);
+
+  // 2) 使图像头失效
+  lv_image_header_cache_drop(
+      src); // 清除 header cache:contentReference[oaicite:3]{index=3}
+
+  // 3) 使图像数据失效
+  lv_image_cache_drop(
+      src); // 清除 image data cache:contentReference[oaicite:4]{index=4}
+
+  bg_img_array.erase(bg_img_array.begin());
+}
+
 void Display::setBackGroundfromSDCARD() {
   DisplayLockGuard lock(this);
   lv_obj_del(bg_img);
   // log_heap();
 
   sd_read_file("FOO.TXT");
-}
-
-// 释放最早添加的背景图像
-void Display::releaseOldestBgImg() {
-  if (!bg_img_array.empty()) {
-    // ESP_LOGI(TAG, "release cache: %d", bg_img_array.size());
-    lv_obj_t *img_obj = bg_img_array.front();
-    const void *src = lv_image_get_src(img_obj); // 获取图像源
-    lv_image_cache_drop(src);                    // 释放对应的缓存
-    lv_obj_del(img_obj);                         // 删除图像对象
-    bg_img_array.erase(bg_img_array.begin());
-  }
 }
