@@ -1,8 +1,8 @@
 #include "lvgl.h"
 #include "stdint.h"
 
-#define LOGO_WIDTH 240
-#define LOGO_HEIGHT 260
+#define LOGO_WIDTH 280
+#define LOGO_HEIGHT 220
 
 extern const uint8_t _binary_logo_bin_start[], _binary_logo_bin_end[];
 

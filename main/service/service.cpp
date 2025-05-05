@@ -6,6 +6,8 @@
 #include "qrcode/qrcode.h"
 #include "ws2812/ws2812.h"
 #include "clock/clock.h"
+#include "storage/sdfile.h"
+#include "config.h"
 
 #define TAG "SERVICE"
 
@@ -64,9 +66,17 @@ void clock_ssd1306(){
   showClock(display);
 }
 
+void init_storage(){
+#ifdef SDCARD_ENABLE
+sd_init();
+#endif
+}
+
 void runServices() {
   ESP_LOGI(TAG, "Starting services");
   // gif_ssd1306();
   // ws2812_init();
   // clock_ssd1306();
+
+  init_storage();
 }

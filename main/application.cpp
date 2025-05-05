@@ -49,7 +49,7 @@ void Application::OnClockTimer() {
   // Print the debug info every 10 seconds
   if (clock_ticks_ % 10 == 0) {
     // SystemInfo::PrintRealTimeStats(pdMS_TO_TICKS(1000));
-    print_heap();
+    log_heap();
   }
 }
 

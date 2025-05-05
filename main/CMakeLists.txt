@@ -1,12 +1,13 @@
 # 设置包含路径
-set(INCLUDE_DIRS "." "board" "service" "display" "assets")
+set(INCLUDE_DIRS "." "board" "service" "display" "assets" "audio" "storage")
 
 # 匹配 main/board 里的所有 cpp（递归子目录）
 file(GLOB_RECURSE ASSETS_SOURCES "assets/*.cpp")
 file(GLOB_RECURSE BOARD_SOURCES "board/*.cpp")
 file(GLOB_RECURSE SERVICE_SOURCES "service/*.cpp")
 file(GLOB_RECURSE DISPLAY_SOURCES "display/*.cpp")
-
+file(GLOB_RECURSE AUDIO_SOURCES "audio/*.cpp")
+file(GLOB_RECURSE AUDIO_SOURCES "storage/*.cpp")
 
 # 设置所有源文件
 set(SOURCES
@@ -18,6 +19,7 @@ set(SOURCES
     ${BOARD_SOURCES}
     ${SERVICE_SOURCES}
     ${DISPLAY_SOURCES}
+    ${AUDIO_SOURCES}
 )
 
 set(FILE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/files/")

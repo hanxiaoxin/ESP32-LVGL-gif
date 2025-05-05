@@ -2,7 +2,6 @@
 #include "assets/frames.h"
 #include "assets/lang_config.h"
 #include "config.h"
-#include "demos/lv_demos.h"
 #include "settings.h"
 #include "utils.h"
 #include <algorithm>
@@ -12,6 +11,7 @@
 #include <esp_lvgl_port.h>
 #include <font_awesome_symbols.h>
 #include <vector>
+#include "logo.h"
 
 #define TAG "LcdDisplay"
 
@@ -108,7 +108,6 @@ SpiLcdDisplay::SpiLcdDisplay(esp_lcd_panel_io_handle_t panel_io,
   // Set the display to on
   ESP_LOGI(TAG, "Turning display on");
   ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
-
 
   ESP_LOGI(TAG, "Adding LCD screen");
   const lvgl_port_display_cfg_t display_cfg = {
@@ -297,8 +296,8 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_style_pad_all(status_bar_, 0, 0);
   lv_obj_set_style_border_width(status_bar_, 0, 0);
   lv_obj_set_style_pad_column(status_bar_, 0, 0);
-  lv_obj_set_style_pad_left(status_bar_, 16, 0);
-  lv_obj_set_style_pad_right(status_bar_, 16, 0);
+  lv_obj_set_style_pad_left(status_bar_, 32, 0);
+  lv_obj_set_style_pad_right(status_bar_, 32, 0);
 
   /* Content */
   content_ = lv_obj_create(container_);
@@ -308,8 +307,7 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_flex_grow(content_, 1);
   lv_obj_set_style_pad_all(content_, 0, 0);
   lv_obj_set_style_pad_top(content_, 10, 0);
-  lv_obj_set_style_bg_color(
-      content_, lv_color_hex(LCD_BG_COLOR), 0);
+  lv_obj_set_style_bg_color(content_, lv_color_hex(LCD_BG_COLOR), 0);
   lv_obj_set_style_border_width(content_, 0, 0);
   // lv_obj_set_style_border_color(content_, lv_color_hex(LCD_BG_COLOR), 0);
 
@@ -317,14 +315,36 @@ void LcdDisplay::SetupUI() {
   lv_obj_set_flex_align(content_, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER,
                         LV_FLEX_ALIGN_SPACE_EVENLY); // 子对象居中对齐，等距分布
 
+  /*bg container*/
+  bg_container = lv_img_create(content_);
+  lv_obj_set_size(bg_container, LV_HOR_RES, LV_VER_RES - fonts_.text_font->line_height);
+  lv_obj_align(bg_container, LV_ALIGN_CENTER, 0, 0); // 居中对齐
+  lv_obj_set_style_border_width(bg_container, 0, 0);
+
   /* clock_label */
-  clock_label_ = lv_label_create(content_);
-  lv_label_set_text(clock_label_, "--:--:--");
-  // lv_obj_set_size(clock_label_, LV_HOR_RES, fonts_.text_font->line_height);
-  lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_text_color(clock_label_, lv_color_white(), 0);
+  clock_label_ = lv_label_create(bg_container);
+  // lv_obj_set_pos(clock_label_, 190, 12);
+  if (LCD_CLOCK_VERTICAL) {
+    lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_LEFT, 0);
+    lv_label_set_text(clock_label_, "--\n--\n--");
+  } else {
+    lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_CENTER, 0);
+    lv_label_set_text(clock_label_, "--:--:--");
+  }
+
+  lv_obj_set_size(clock_label_, LV_HOR_RES, fonts_.text_font->line_height * 3);
+  lv_obj_set_style_border_width(clock_label_, 0, 0);
+  
+  // lv_obj_set_style_text_align(clock_label_, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_color(clock_label_, lv_color_hex(LCD_CLOCK_COLOR), 0);
   lv_obj_set_style_bg_opa(clock_label_, LV_OPA_TRANSP, 0);
   lv_obj_set_style_text_font(clock_label_, &lv_font_montserrat_28, 0);
+
+  /*bg img */
+  bg_img = lv_image_create(bg_container);
+  lv_img_set_src(bg_img, &logo);
+  lv_obj_align(bg_img, LV_ALIGN_CENTER, 0, 0); // 居中对齐
+  lv_obj_move_background(bg_img);
 
   emotion_label_ = lv_label_create(content_);
   lv_obj_set_style_text_font(emotion_label_, &font_awesome_30_4, 0);

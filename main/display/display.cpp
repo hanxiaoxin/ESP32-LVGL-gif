@@ -11,13 +11,13 @@
 #include "assets/lang_config.h"
 #include "board/board.h"
 #include "board/ntp.h"
+#include "config.h"
 #include "display.h"
 #include "font_awesome_symbols.h"
 #include "lcd_display.h"
-#include "logo.h"
 #include "settings.h"
 #include "utils.h"
-#include "config.h"
+#include "storage/sdfile.h"
 
 #define TAG "Display"
 
@@ -59,13 +59,16 @@ Display::Display() {
             auto device_state = Application::GetInstance().GetDeviceState();
 
             if (device_state == kDeviceStateReady) {
-              display->setBackGround(&frames[frameCount]);
-              frameCount++;
 
-              if (frameCount >= total_frame_count) {
-                frameCount = 0;
-              }
-              return;
+#ifdef SDCARD_ENABLE
+                  display->setBackGroundfromSDCARD();
+#else
+                  display->setBackGround(&frames[frameCount]);
+                  frameCount++;
+                  if (frameCount >= total_frame_count) {
+                    frameCount = 0;
+                  }
+#endif
             }
           },
       .arg = this,
@@ -90,7 +93,7 @@ Display::Display() {
       .skip_unhandled_events = true,
   };
   ESP_ERROR_CHECK(esp_timer_create(&update_display_timer_args, &update_timer_));
-  ESP_ERROR_CHECK(esp_timer_start_periodic(update_timer_, 1000000));
+  ESP_ERROR_CHECK(esp_timer_start_periodic(update_timer_, DISPLAY_UPDATE_PEROID));
 
   // Create a power management lock
   auto ret =
@@ -294,7 +297,6 @@ void Display::SetClock(const char *content) {
   lv_label_set_text(status_label_, get_current_date());
 }
 
-
 void Display::SetTheme(const std::string &theme_name) {
   current_theme_name_ = theme_name;
   Settings settings("display", true);
@@ -303,10 +305,41 @@ void Display::SetTheme(const std::string &theme_name) {
 
 void Display::setBackGround(const lv_img_dsc_t *img) {
   DisplayLockGuard lock(this);
-  // bg_img = lv_image_create(content_);
-  // lv_image_set_src(bg_img, img);
-  // lv_obj_center(bg_img);
-  // lv_obj_set_style_border_color(img_obj, lv_color_black(), LV_PART_MAIN);
-  // lv_obj_set_style_border_width(img_obj, 2, LV_PART_MAIN);
-  lv_obj_set_style_bg_img_src(content_, img, 0);
+
+  if (MAX_BG_IMG_COUNT > 0 && bg_img_array.size() >= MAX_BG_IMG_COUNT) {
+    releaseOldestBgImg();
+  }
+
+  lv_obj_del(bg_img);
+  // log_heap();
+
+  bg_img = lv_image_create(bg_container);
+  lv_obj_move_background(bg_img);
+  lv_image_set_src(bg_img, img);
+
+  if (MAX_BG_IMG_COUNT > 0) {
+    bg_img_array.push_back(bg_img);
+  }
+    
+  // lv_obj_set_style_bg_img_src(content_, img, 0);
+}
+
+void Display::setBackGroundfromSDCARD() {
+  DisplayLockGuard lock(this);
+  lv_obj_del(bg_img);
+  // log_heap();
+
+  sd_read_file("FOO.TXT");
+}
+
+// 释放最早添加的背景图像
+void Display::releaseOldestBgImg() {
+  if (!bg_img_array.empty()) {
+    // ESP_LOGI(TAG, "release cache: %d", bg_img_array.size());
+    lv_obj_t *img_obj = bg_img_array.front();
+    const void *src = lv_image_get_src(img_obj); // 获取图像源
+    lv_image_cache_drop(src);                    // 释放对应的缓存
+    lv_obj_del(img_obj);                         // 删除图像对象
+    bg_img_array.erase(bg_img_array.begin());
+  }
 }

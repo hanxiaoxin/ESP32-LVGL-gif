@@ -55,10 +55,17 @@ void EnterWifiConfigMode() {
 }
 
 void StartNetwork() {
+  Settings settings("wifi", true);
+  wifi_config_mode_ = settings.GetInt("force_ap") == 1;
+  if (wifi_config_mode_) {
+    ESP_LOGI(TAG, "force_ap is set to 1, reset to 0");
+    settings.SetInt("force_ap", 0);
+    wifi_config_mode_ = true;
+  }
+
   Application::GetInstance().SetDeviceState(
       DeviceState::kDeviceStateConnecting);
   if (DEFAULT_WIFI) {
-    Settings settings("wifi", true);
     settings.SetString("ssid", "iKuai2G-cc7b");
     settings.SetString("password", "314314314");
     ESP_LOGW(TAG, "Default WiFi SSID: %s", settings.GetString("ssid").c_str());

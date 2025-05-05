@@ -1,9 +1,9 @@
 #include "esp_heap_caps.h"
 #include "esp_log.h"
-#include "stdint.h"
 #include "lvgl.h"
+#include "stdint.h"
 
-#define HEAP_SIZE 200
+#define HEAP_SIZE 128
 
 static const char *TAG = "UTILS";
 static uint8_t *big_buf;
@@ -28,18 +28,21 @@ void print_binary(uint8_t *bin_end, uint8_t *bin_start) {
   ESP_LOGI(TAG, "\n");
 }
 
-void print_heap(){
+void print_heap() {
+  heap_caps_print_heap_info(MALLOC_CAP_INTERNAL);
+}
+
+void log_heap(){
+  int total_sram = heap_caps_get_total_size(MALLOC_CAP_INTERNAL);
   int free_sram = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
   int min_free_sram = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
   // heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
   // ESP_LOGI(TAG, "Largest free internal block: %d",
-  //          heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
-  ESP_LOGI(TAG, "Free internal: %u minimal internal: %u", free_sram,
-           min_free_sram);
-
-  size_t free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
-  ESP_LOGI("MEM", "External PSRAM: %d bytes free", free_psram);
+          //  heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
+  ESP_LOGI(TAG, "Free internal: %u minimal internal: %u, total internal %u",
+           free_sram, min_free_sram, total_sram);
 }
+
 
 void malloc_heap() {
   big_buf = (uint8_t *)heap_caps_malloc(HEAP_SIZE * 1024, MALLOC_CAP_INTERNAL);
@@ -56,4 +59,12 @@ void free_heap() {
     big_buf = nullptr;
   }
   // print_heap();
+}
+
+void mem_report(void) {
+  lv_mem_monitor_t mon;
+
+  lv_mem_monitor(&mon);
+  ESP_LOGW(TAG, "Total: %d free: %d max: %d used: %d%%", mon.total_size,
+           mon.free_size, mon.max_used, mon.used_pct);
 }

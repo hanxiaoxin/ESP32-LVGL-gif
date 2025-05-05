@@ -1,4 +1,6 @@
 #include "board.h"
+#include "../audio/audio_codec.h"
+#include "../audio/no_audio_codec.h"
 #include "assets/lang_config.h"
 #include "config.h"
 #include "display/display.h"
@@ -9,6 +11,7 @@
 #include "font_awesome_symbols.h"
 #include "settings.h"
 #include "system_info.h"
+#include "wifi.h"
 #include <driver/spi_common.h>
 #include <esp_chip_info.h>
 #include <esp_log.h>
@@ -217,7 +220,7 @@ const char *Board::GetNetworkStateIcon() {
 
 void Board::initButtonEvents() {
   ESP_LOGI(TAG, "Initializing button events");
-  boot_button_.OnPressDown([]() { ESP_LOGI(TAG, "PRESS_DOWN triggered"); });
+  boot_button_.OnPressDown([]() { ResetWifiConfiguration(); });
   boot_button_.OnPressUp([]() { ESP_LOGI(TAG, "PRESS_UP triggered"); });
   boot_button_.OnLongPress([]() { ESP_LOGI(TAG, "LONG_PRESS triggered"); });
   boot_button_.OnClick([]() { ESP_LOGI(TAG, "CLICK triggered"); });
@@ -286,7 +289,7 @@ void Board::initOledDisplay() {
     ESP_LOGE(TAG, "Failed to initialize display");
     return;
   }
-  
+
   // Set the display to on
   ESP_LOGI(TAG, "Turning display on");
   ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_, true));
@@ -300,7 +303,8 @@ void Board::initLcdDisplay() {
   ESP_LOGW(TAG, "Free internal heap: %d\n",
            heap_caps_get_free_size(MALLOC_CAP_8BIT));
 
-  ESP_LOGD(TAG, "Init SPI bus for LCD display");
+  ESP_LOGW(TAG, "Init SPI bus for LCD display");
+  ESP_LOGI(TAG, "MOSI: %d, SCLK: %d", LCD_SDA_PIN, LCD_SCL_PIN);
   spi_bus_config_t buscfg = {};
   buscfg.mosi_io_num = LCD_SDA_PIN;
   buscfg.miso_io_num = GPIO_NUM_NC;
@@ -348,6 +352,9 @@ void Board::initLcdDisplay() {
 #elif defined(LCD_TYPE_GC9A01_SERIAL)
   ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(panel_io, &panel_config, &panel));
   ESP_LOGI(TAG, "LCD driver GC9A01 installed");
+#elif defined(LCD_TYPE_ST7735_SERIAL)
+  ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(panel_io, &panel_config, &panel));
+  ESP_LOGI(TAG, "LCD driver ST7735 installed");
 #else
   ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(panel_io, &panel_config, &panel));
   ESP_LOGI(TAG, "LCD driver ST7789 installed");
@@ -397,4 +404,18 @@ bool Board::GetBatteryLevel(int &level, bool &charging, bool &discharging) {
   charging = false;
   discharging = false;
   return true;
+}
+
+AudioCodec *Board::GetAudioCodec() {
+#ifdef AUDIO_I2S_METHOD_SIMPLEX
+  static NoAudioCodecSimplex audio_codec(
+      AUDIO_INPUT_SAMPLE_RATE, AUDIO_OUTPUT_SAMPLE_RATE,
+      AUDIO_I2S_SPK_GPIO_BCLK, AUDIO_I2S_SPK_GPIO_LRCK, AUDIO_I2S_SPK_GPIO_DOUT,
+      AUDIO_I2S_MIC_GPIO_SCK, AUDIO_I2S_MIC_GPIO_WS, AUDIO_I2S_MIC_GPIO_DIN);
+#else
+  static NoAudioCodecDuplex audio_codec(
+      AUDIO_INPUT_SAMPLE_RATE, AUDIO_OUTPUT_SAMPLE_RATE, AUDIO_I2S_GPIO_BCLK,
+      AUDIO_I2S_GPIO_WS, AUDIO_I2S_GPIO_DOUT, AUDIO_I2S_GPIO_DIN);
+#endif
+  return &audio_codec;
 }

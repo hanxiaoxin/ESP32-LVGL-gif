@@ -7,6 +7,7 @@
 #include <esp_lcd_panel_ops.h>
 #include <esp_lcd_panel_vendor.h>
 #include <string>
+#include "../audio/audio_codec.h"
 
 class Display;
 class Board {
@@ -50,5 +51,6 @@ public:
   const char *GetNetworkStateIcon();
   esp_err_t probe_SSD1306();
   bool GetBatteryLevel(int &level, bool &charging, bool &discharging);
+  AudioCodec *GetAudioCodec();
 };
 #endif // BOARD_H

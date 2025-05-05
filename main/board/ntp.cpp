@@ -10,6 +10,7 @@
 #include "esp_wifi.h"
 #include "lang_config.h"
 #include "nvs_flash.h"
+#include "config.h"
 
 static const char *TAG = "NTP";
 
@@ -74,7 +75,11 @@ const char *get_current_time() {
   time(&now);
   localtime_r(&now, &timedata);
 
-  strftime(strftime_buf, sizeof(strftime_buf), "%H:%M:%S", &timedata);
+  if (LCD_CLOCK_VERTICAL) {
+    strftime(strftime_buf, sizeof(strftime_buf), "%H\n%M\n%S", &timedata);
+  } else {
+    strftime(strftime_buf, sizeof(strftime_buf), "%H:%M:%S", &timedata);
+  }
   // ESP_LOGI(TAG, "current time: %s", strftime_buf);
   return strftime_buf;
 }
