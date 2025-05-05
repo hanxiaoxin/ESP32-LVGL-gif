@@ -58,7 +58,7 @@ Display::Display() {
             }
             auto device_state = Application::GetInstance().GetDeviceState();
 
-            if (device_state == kDeviceStateReady) {
+            if (device_state != kDeviceStateReady) {
 
 #ifdef SDCARD_ENABLE
                   display->setBackGroundfromSDCARD();
@@ -306,21 +306,25 @@ void Display::SetTheme(const std::string &theme_name) {
 void Display::setBackGround(const lv_img_dsc_t *img) {
   DisplayLockGuard lock(this);
 
-  if (MAX_BG_IMG_COUNT > 0 && bg_img_array.size() >= MAX_BG_IMG_COUNT) {
+  // 1) 创建新图像
+  lv_obj_t *img_obj = lv_image_create(bg_container);
+  lv_obj_move_background(img_obj);
+  lv_image_set_src(img_obj, img);
+
+  lv_obj_del(bg_img);
+
+  // 4) 更新当前背景
+  bg_img = img_obj;
+  // ESP_LOGE(TAG, "current cache size: %d, new img %p, %p",
+  //              bg_img_array.size(), bg_img, ((lv_image_t *)bg_img)->src);
+
+  // 2) 将新图放缓存
+  bg_img_array.push_back(img_obj);
+
+  // 3) 如果超出，释放最旧
+  if (MAX_BG_IMG_COUNT > 0 && bg_img_array.size() > MAX_BG_IMG_COUNT) {
     releaseOldestBgImg();
   }
-  lv_obj_del(bg_img);
-  // log_heap();
-
-  bg_img = lv_image_create(bg_container);
-  lv_obj_move_background(bg_img);
-  lv_image_set_src(bg_img, img);
-
-  if (MAX_BG_IMG_COUNT > 0) {
-    bg_img_array.push_back(bg_img);
-  }
-    
-  // lv_obj_set_style_bg_img_src(content_, img, 0);
 }
 
 // 释放最早添加的背景图像
@@ -329,17 +333,20 @@ void Display::releaseOldestBgImg() {
     return;
 
   lv_obj_t *img_obj = bg_img_array.front();
-  const void *src = lv_image_get_src(img_obj);
-
-  // 2) 使图像头失效
-  lv_image_header_cache_drop(
-      src); // 清除 header cache:contentReference[oaicite:3]{index=3}
-
-  // 3) 使图像数据失效
-  lv_image_cache_drop(
-      src); // 清除 image data cache:contentReference[oaicite:4]{index=4}
-
   bg_img_array.erase(bg_img_array.begin());
+
+  // ESP_LOGW(TAG, "img_obj cache %p, %p", img_obj, ((lv_image_t *)img_obj)->src);
+
+  /* const void *src = lv_image_get_src(img_obj);
+
+  ESP_LOGW(TAG, "src pointer: %p", src);
+
+  if ((uintptr_t)src < 0x20000000) {
+    ESP_LOGW(TAG, "Likely invalid image src: %p", src);
+    return;
+  } */
+
+  lv_image_cache_drop(((lv_image_t *)bg_img)->src);
 }
 
 void Display::setBackGroundfromSDCARD() {

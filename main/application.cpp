@@ -35,12 +35,12 @@ void Application::Start() {
   esp_timer_create(&clock_timer_args, &clock_timer_handle_);
   esp_timer_start_periodic(clock_timer_handle_, 1000000);
 
-  // Board &board = Board::GetInstance();
-  StartNetwork();
-  init_ntp();
+  Board &board = Board::GetInstance();
+  // StartNetwork();
+  // init_ntp();
   // init_uart();
-  xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
-  runServices();
+  // xTaskCreatePinnedToCore(led_blink, "led_blink", 4096, NULL, 5, NULL, 0);
+  // runServices();
 }
 
 void Application::OnClockTimer() {

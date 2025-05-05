@@ -30,7 +30,7 @@
   { \
       .header = { \
           .magic = LV_IMAGE_HEADER_MAGIC, \
-          .cf = LV_COLOR_FORMAT_RGB565A8, \
+          .cf = LV_COLOR_FORMAT_RGB565, \
           .flags = 0 | LV_IMAGE_FLAGS_COMPRESSED, \
           .w = FRAME_WIDTH, \
           .h = FRAME_HEIGHT, \
@@ -139,24 +139,6 @@ extern const uint8_t _binary_frame_46_bin_start[];
 extern const uint8_t _binary_frame_46_bin_end[];
 extern const uint8_t _binary_frame_47_bin_start[];
 extern const uint8_t _binary_frame_47_bin_end[];
-extern const uint8_t _binary_frame_48_bin_start[];
-extern const uint8_t _binary_frame_48_bin_end[];
-extern const uint8_t _binary_frame_49_bin_start[];
-extern const uint8_t _binary_frame_49_bin_end[];
-extern const uint8_t _binary_frame_50_bin_start[];
-extern const uint8_t _binary_frame_50_bin_end[];
-extern const uint8_t _binary_frame_51_bin_start[];
-extern const uint8_t _binary_frame_51_bin_end[];
-extern const uint8_t _binary_frame_52_bin_start[];
-extern const uint8_t _binary_frame_52_bin_end[];
-extern const uint8_t _binary_frame_53_bin_start[];
-extern const uint8_t _binary_frame_53_bin_end[];
-extern const uint8_t _binary_frame_54_bin_start[];
-extern const uint8_t _binary_frame_54_bin_end[];
-extern const uint8_t _binary_frame_55_bin_start[];
-extern const uint8_t _binary_frame_55_bin_end[];
-extern const uint8_t _binary_frame_56_bin_start[];
-extern const uint8_t _binary_frame_56_bin_end[];
 
 static const lv_image_dsc_t frames[] = {
     FRAME_DSC(00),
@@ -207,15 +189,6 @@ static const lv_image_dsc_t frames[] = {
     FRAME_DSC(45),
     FRAME_DSC(46),
     FRAME_DSC(47),
-    FRAME_DSC(48),
-    FRAME_DSC(49),
-    FRAME_DSC(50),
-    FRAME_DSC(51),
-    FRAME_DSC(52),
-    FRAME_DSC(53),
-    FRAME_DSC(54),
-    FRAME_DSC(55),
-    FRAME_DSC(56),
 };
 
 static const int frames_count = sizeof(frames) / sizeof(lv_image_dsc_t);

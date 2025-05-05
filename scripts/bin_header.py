@@ -65,7 +65,7 @@ with open(output_h, "w") as f:
   {{ \\
       .header = {{ \\
           .magic = LV_IMAGE_HEADER_MAGIC, \\
-          .cf = LV_COLOR_FORMAT_RGB565A8, \\
+          .cf = LV_COLOR_FORMAT_RGB565, \\
           .flags = 0 | LV_IMAGE_FLAGS_COMPRESSED, \\
           .w = FRAME_WIDTH, \\
           .h = FRAME_HEIGHT, \\
