@@ -41,7 +41,7 @@ protected:
   int width_ = 0;
   int height_ = 0;
 
-  static const size_t MAX_BG_IMG_COUNT = 20; // 定义最大缓存
+  static const size_t MAX_BG_IMG_COUNT = 60; // 定义最大缓存
   std::vector<lv_obj_t *> bg_img_array;
 
   esp_pm_lock_handle_t pm_lock_ = nullptr;

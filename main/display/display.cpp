@@ -58,7 +58,7 @@ Display::Display() {
             }
             auto device_state = Application::GetInstance().GetDeviceState();
 
-            if (device_state != kDeviceStateReady) {
+            if (device_state == kDeviceStateReady) {
 
 #ifdef SDCARD_ENABLE
                   display->setBackGroundfromSDCARD();
