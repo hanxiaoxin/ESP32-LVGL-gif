@@ -335,8 +335,6 @@ void Display::releaseOldestBgImg() {
   lv_obj_t *img_obj = bg_img_array.front();
   bg_img_array.erase(bg_img_array.begin());
 
-  // ESP_LOGW(TAG, "img_obj cache %p, %p", img_obj, ((lv_image_t *)img_obj)->src);
-
   /* const void *src = lv_image_get_src(img_obj);
 
   ESP_LOGW(TAG, "src pointer: %p", src);
@@ -346,7 +344,7 @@ void Display::releaseOldestBgImg() {
     return;
   } */
 
-  lv_image_cache_drop(((lv_image_t *)bg_img)->src);
+  lv_image_cache_drop(img_obj);
 }
 
 void Display::setBackGroundfromSDCARD() {
